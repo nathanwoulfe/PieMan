@@ -1,0 +1,53 @@
+<div ng-controller="PieMan.EditorController" class="pieman-editor">
+
+    <div class="controls">
+        <div>
+            <span ng-if="!showCharts">Show analytics for previous&nbsp;<input type="text" ng-model="dateSpan" />&nbsp;days</span>
+            <span ng-if="showCharts">Showing analytics for previous {{dateSpan}} days</span>
+            <a class="btn icon" ng-click="toggleState()" ng-class="{'loading': showLoader, 'icon-play': !showCharts, 'icon-delete': showCharts}"></a>
+            <i class="icon icon-settings hover-show pull-right btn-settings" ng-click="settingsDialog()" title="Settings"></i>
+        </div>
+    </div>
+    <div class="pieman-wrapper" ng-if="showCharts">
+        <div class="stat-banner">
+            <div id="totalVisitors" class="stat">
+                Total visitors in last <span class="days" ng-bind="dateSpan"></span> days<br />
+                <span class="value" ng-cloak ng-bind="totalVisitors|number"></span>
+            </div>
+            <div id="totalViews" class="stat">
+                Total pageviews in last <span class="days" ng-bind="dateSpan"></span> days<br />
+                <span class="value" ng-cloak ng-bind="totalPageViews|number"></span>
+            </div>
+            <div id="uniqueViews" class="stat">
+                Unique pageviews in last <span class="days" ng-bind="dateSpan"></span> days<br />
+                <span class="value" ng-cloak ng-bind="totalUniqueViews|number"></span>
+            </div>
+            <div id="avgTime" class="stat">
+                Average time on page<br />
+                <span class="value" ng-cloak ng-bind="avgTimeOnPage|secondsToString"></span>
+            </div>
+        </div>
+        <div class="PieMan-line line"
+             views="views"
+             unique="unique"
+             dates="dates"
+             label="'Page views'">
+        </div>
+        <div class="PieMan-pie pie"
+             data="newVisits"
+             label="'New vs returning'">
+        </div>
+        <div class="PieMan-pie pie"
+             data="deviceCategory"
+             label="'Device category'">
+        </div>
+        <div class="PieMan-drilldown-pie pie"
+             data="browserType"
+             label="'Browser version'"
+             drill-in="'Click to view versions'"
+             drill-out="'Click to view all browsers'">
+        </div>
+
+    </div>
+
+</div>

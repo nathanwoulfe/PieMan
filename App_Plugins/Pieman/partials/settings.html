@@ -1,0 +1,60 @@
+﻿<div ng-controller="PieMan.SettingsController" class="pieman-settings">
+    <div class="umb-pane form-horizontal">
+
+        <header>
+            <h3>
+                <span class="icon-pie-chart"></span>
+                PieMan
+            </h3>
+            <h4>Settings</h4>
+        </header>
+        <section>
+            <div ng-hide="isAuthd">
+                <umb-control-group label="Google oAuth" description="Link your Google Analytics account with PieMan.">
+                    <button class="btn btn-success" ng-click="auth()"><span class="icon-lock"></span> Authorize</button>
+                </umb-control-group>
+            </div>
+
+            <div class="umb-property">
+                <div class="control-group umb-control-group">
+                    <div class="umb-el-wrap">
+                        <div class="controls controls-row">
+                            <label class="control-label" for="">
+                                Account
+                            </label>
+                            <select name="account" ng-model="selectedaccount" ng-change="accountSelected(selectedaccount)" ng-options="account.Name for account in accounts">
+                                <option value="">-- Select account --</option>
+                            </select>
+                        </div>
+                        <div class="controls controls-row" ng-hide="dialogData.account.Id === ''">
+                            <label class="control-label" for="">
+                                Profile
+                            </label>
+                            <select name="profile" ng-show="selectedaccount" ng-model="selectedprofile" ng-change="profileSelected(selectedprofile)" ng-options="profile.Name for profile in profiles">
+                                <option value="">-- Select profile --</option>
+                            </select>
+                        </div>
+                        <hr />
+                        <div ng-show="selectedprofile">
+                            <h4>Selected profile</h4>
+                            <h5>NAME: {{ selectedprofile.Name }}</h5>
+                            <h5>WEBSITE: {{ selectedprofile.WebsiteUrl }}</h5>
+                            <h5>ID: {{ selectedprofile.Id }}</h5>
+                            <h5>WEB PROPERTY ID: {{ selectedprofile.WebPropertyId }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btns">
+                <button ng-disabled="!selectedprofile" ng-click="save()" data-hotkey="ctrl+s" class="btn btn-success">
+                    <localize key="buttons_save">Save</localize>
+                </button>
+                <button ng-click="close()" data-hotkey="ctrl+x" class="btn btn-default">
+                    Cancel
+                </button>
+            </div>
+
+        </section>
+    </div>
+</div>
