@@ -10,6 +10,9 @@
             getViewsChartData: function (profileID, dateSpan, filter) {
                 return $http.get('backoffice/pieman/analyticsapi/getviewschartdata', { params: { profile: profileID, dateSpan: dateSpan, filter: filter } });
             },
+            getComparisonChartData: function (profileID, startDate, endDate, filter) {
+                return $http.get('backoffice/pieman/analyticsapi/getcomparisonchartdata', { params: { profile: profileID, startDate: startDate, endDate: endDate, filter: filter } });
+            },
             // sets the global chart theming - additional values are set in related directives
             highchartsTheme: function (fontStack) {
                 return {

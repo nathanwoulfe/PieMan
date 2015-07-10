@@ -35,21 +35,74 @@ angular.module("umbraco")
             $scope.showCharts = false;
             $scope.showLoader = false;
             $scope.loadingStatus = [0, 0, 0];
+            $scope.prevViews = [];
+            $scope.uniqueViews = [];
+        }
+
+        
+        // set the comparison, if any
+        $scope.comparisonOptions = [
+            { key: '-- Select --', val: 0 },
+            { key: 'Preceding period', val: 1 },
+            { key: 'Same period last month', val: 2 },
+            { key: 'Same period last year', val: 3 }
+        ];
+        $scope.comparisonType = 0;
+
+        $scope.getComparisonData = function () {
+
+            var startDate = new Date(),
+                endDate = new Date();
+
+            if ($scope.comparisonType === 1) {
+                startDate.setDate(startDate.getDate() - ($scope.dateSpan * 2));
+                endDate.setDate(endDate.getDate() - $scope.dateSpan);
+            }
+            else if ($scope.comparisonType === 2) {
+                startDate.setDate(startDate.getDate() - 28 - $scope.dateSpan);
+                endDate.setDate(endDate.getDate() - 28);
+            }
+            else if ($scope.comparisonType === 3) {
+                startDate.setDate(startDate.getDate() - 365 - $scope.dateSpan);
+                endDate.setDate(endDate.getDate() - 365);
+            }
+
+            if ($scope.comparisonType > 0) {
+                PieManResource.getComparisonChartData($scope.config.profile.Id, startDate.toUTCString(), endDate.toUTCString(), $scope.filter)
+                    .then(function (resp) {
+                        var len = resp.data.Rows.length, tempV = [], tempU = [];
+
+                        for (i = 0; i < len; i++) {
+
+                            var o = resp.data.Rows[i].Cells,
+                                views = parseInt(o[1].Value),
+                                uniqueViews = parseInt(o[2].Value),
+                                year = o[0].Value.substr(0, 4),
+                                month = o[0].Value.substr(4, 2),
+                                day = o[0].Value.substr(6, 2);
+
+                            tempV.push(views);
+                            tempU.push(uniqueViews);
+                        }
+                        $scope.prevViews = tempV;
+                        $scope.prevUnique = tempU;
+                    });
+            }
         }
 
         // the heavy lifting happens in here
         var getAnalytics = function () {
-
+            
             $scope.showLoader = true;
 
-            var pagePath = editorState.current.urls[0];
+            var pagePath = editorState.current.urls[0], len, i;
             if (pagePath.charAt(pagePath.length-1) === '/') {
                 pagePath = pagePath.slice(0,-1);
             }
 
-            var filter = 'ga:pagePath==' + pagePath, len, i;
+            $scope.filter = 'ga:pagePath==' + pagePath;
 
-            PieManResource.getViewsDatapoints($scope.config.profile.Id, $scope.dateSpan, filter)
+            PieManResource.getViewsDatapoints($scope.config.profile.Id, $scope.dateSpan, $scope.filter)
                 .then(function (resp) {
 
                     var d = resp.data.Rows[0].Cells;
@@ -68,7 +121,7 @@ angular.module("umbraco")
                     checkLoadingStatus();
                 });
 
-            PieManResource.getViewsChartData($scope.config.profile.Id, $scope.dateSpan, filter)
+            PieManResource.getViewsChartData($scope.config.profile.Id, $scope.dateSpan, $scope.filter)
                 .then(function (resp) {
 
                     $scope.dates = [];
@@ -94,7 +147,7 @@ angular.module("umbraco")
                     checkLoadingStatus();
                 });
 
-            PieManResource.getBrowserDatapoints($scope.config.profile.Id, $scope.dateSpan, filter)
+            PieManResource.getBrowserDatapoints($scope.config.profile.Id, $scope.dateSpan, $scope.filter)
                 .then(function (resp) {
 
                     $scope.deviceCategory = [

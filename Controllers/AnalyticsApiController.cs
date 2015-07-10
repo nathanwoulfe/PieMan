@@ -95,6 +95,25 @@ namespace PieMan.Controllers
         }
 
         /// <summary>
+        /// Gets the chart data for total and unique pageviews over the given date span
+        /// </summary>
+        /// <param name="profile">Google Analytics profile identifier</param>
+        /// <param name="DateSpan">Number of days preceding the current day</param>
+        /// <param name="Filter">The page path</param>
+        /// <returns></returns>
+        public HttpResponseMessage GetComparisonChartdata(string profile, string startDate, string endDate, string Filter)
+        {
+            return this.Response((object)this.GetGoogleService().Analytics.GetData(profile, new AnalyticsDataOptions()
+            {
+                StartDate = DateTime.Parse(startDate),
+                EndDate = DateTime.Parse(endDate),
+                Filters = (AnalyticsFilterOptions)Filter,
+                Dimensions = (AnalyticsDimensionCollection)AnalyticsDimension.Date,
+                Metrics = AnalyticsMetric.Pageviews + AnalyticsMetric.UniquePageviews
+            }));
+        }
+
+        /// <summary>
         /// Gets data points for browser type, version and device categories
         /// </summary>
         /// <param name="profile">Google Analytics profile identifier</param>

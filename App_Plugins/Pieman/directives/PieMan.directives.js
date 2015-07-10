@@ -5,6 +5,8 @@
           scope: {
               views: '=',
               unique: '=',
+              prevViews: '=',
+              prevUnique: '=',
               dates: '=',
               label: '='
           },
@@ -44,16 +46,43 @@
                             fontSize: '14px'
                         }
                     },
-                });              
+                });
+
+                var chartComparison = function (data, prevData, label, color, i) {
+
+                    if (data !== prevData && data.length > 0) {
+
+                        if (chart.series[i] !== undefined) {
+                            chart.series[i].setData(data, true);
+                        }
+                        else {
+                            chart.addSeries({
+                                name: label,
+                                data: data,
+                                color: color,
+                                zIndex: -1
+                            });
+                        }
+                    }
+                }
 
                 scope.$watch('views', function (newValue) {
                     chart.series[0].setData(newValue, true);
+                    $(window).trigger('resize');
                 }, true);
 
-                scope.$watch('unique', function (newValue) {
+                scope.$watch('unique', function (newValue) {                    
                     chart.series[1].setData(newValue, true);
+                    $(window).trigger('resize');
                 }, true);
 
+                scope.$watch('prevViews', function (newValue, oldValue) {
+                    chartComparison(newValue, oldValue, 'Comparison - views', '#b1d7e7', 2);                    
+                }, true);
+
+                scope.$watch('prevUnique', function (newValue, oldValue) {
+                    chartComparison(newValue, oldValue, 'Comparison - unique', '#b7e4aa', 3);
+                }, true);
           }
       }
   })
@@ -101,6 +130,7 @@
 
               scope.$watch("data", function (newValue) {
                   chart.series[0].setData(newValue, true);
+                  $(window).trigger('resize');
               }, true);
 
           }
@@ -186,6 +216,7 @@
 
               scope.$watch("data", function (newValue) {
                   chart.series[0].setData(newValue, true);
+                  $(window).trigger('resize');
               }, true);
 
           }
