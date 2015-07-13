@@ -6,6 +6,9 @@
     margin-top: 10px;
     margin-left: 15px;
     color: #ccc;
+    -moz-transition: color ease-in-out 0.2s;
+    -o-transition: color ease-in-out 0.2s;
+    -webkit-transition: color ease-in-out 0.2s;
     transition: color ease-in-out 0.2s; }
     .pieman-editor .btn-settings:hover {
       color: #aaa; }
@@ -25,11 +28,19 @@
       margin: 10px 0 30px 0;
       color: #df7f48;
       text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15); }
+  .pieman-editor .line-wrapper {
+    position: relative; }
+    .pieman-editor .line-wrapper select {
+      position: absolute;
+      top: 0;
+      right: 0; }
   .pieman-editor .line {
     margin-top: 20px;
     margin-bottom: 30px; }
   .pieman-editor .pie {
-    height: 500px; }
+    height: 500px;
+    float: left;
+    width: 33.333%; }
   .pieman-editor .pieman-wrapper {
     width: 100%;
     position: relative; }
@@ -79,6 +90,9 @@
       border-radius: 50%;
       margin-left: -25px;
       line-height: 30px;
+      -moz-transition: color ease-in-out 0.2s;
+      -o-transition: color ease-in-out 0.2s;
+      -webkit-transition: color ease-in-out 0.2s;
       transition: color ease-in-out 0.2s; }
       .pieman-editor .controls a:hover {
         background: #2e8aea;
@@ -93,14 +107,14 @@
       .pieman-editor .controls a.icon-delete {
         padding-left: 8px;
         width: 30px; }
-  .pieman-editor .pie {
-    float: left;
-    width: 33.333%; }
   .pieman-editor .btn {
     opacity: 1;
     background: #fff;
     border: none;
     padding: 5px 0;
+    -moz-transition: background 0.2s ease-in-out;
+    -o-transition: background 0.2s ease-in-out;
+    -webkit-transition: background 0.2s ease-in-out;
     transition: background 0.2s ease-in-out; }
     .pieman-editor .btn:hover {
       background: #ccc; }
@@ -110,6 +124,10 @@
       -o-transition: opacity ease-in-out 0.2s;
       -webkit-transition: opacity ease-in-out 0.2s;
       transition: opacity ease-in-out 0.2s; }
+  .pieman-editor .highcharts-tooltip hr {
+    margin: 5px 0;
+    border: 0;
+    border-top: 1px solid #555; }
 
 /*** settings ***/
 .pieman-settings .umb-pane {

@@ -9,7 +9,6 @@
     </div>
 
     <div class="pieman-wrapper" ng-show="showCharts">
-        <select ng-model="comparisonType" ng-options="o.val as o.key for o in comparisonOptions" ng-change="getComparisonData()"></select>
 
         <div class="stat-banner">
             <div id="totalVisitors" class="stat">
@@ -30,22 +29,29 @@
             </div>
         </div>
 
-        <div class="PieMan-line line"
-             views="views"
-             unique="unique"
-             prev-views="prevViews"
-             prev-unique="prevUnique"
-             dates="dates"
-             label="'Page views'">
+        <div class="line-wrapper">
+            <div class="PieMan-line line"
+                 views="views"
+                 unique="unique"
+                 prev-views="prevViews"
+                 prev-unique="prevUnique"
+                 dates="dates"
+                 prev-dates="prevDates"
+                 label="'Page views'">
+            </div>
+            <select ng-model="comparisonType" ng-options="o.val as o.key for o in comparisonOptions" ng-change="getComparisonData()"></select>
         </div>
+
         <div class="PieMan-pie pie"
              data="newVisits"
              label="'New vs returning'">
         </div>
+
         <div class="PieMan-pie pie"
              data="deviceCategory"
              label="'Device category'">
         </div>
+
         <div class="PieMan-drilldown-pie pie"
              data="browserType"
              label="'Browser version'"

@@ -8,6 +8,7 @@
               prevViews: '=',
               prevUnique: '=',
               dates: '=',
+              prevDates: '=',
               label: '='
           },
           template: '<div></div>',
@@ -30,7 +31,7 @@
                     series: [
                         {
                             name: 'Total',
-                            data: scope.views
+                            data: scope.views                           
                         },
                         {
                             name: 'Unique',
@@ -38,30 +39,56 @@
                         }
                     ],
                     tooltip: {
+                        shared: true,
+                        useHTML: true,
+                        borderColor: '#555555',
+                        borderRadius: 0,
                         formatter: function () {
-                            return '<b>' + scope.dates[this.x] + '</b><br/>' +
-                                this.series.name + ': ' + this.y;
-                        },
-                        style: {
-                            fontSize: '14px'
+                            var tooltip = '',
+                                i;
+
+                            for (i = 0; i < this.points.length; i += 1) {
+
+                                var p = this.points[i],
+                                    _i = p.series._i,
+                                    date = scope.dates[p.x],
+                                    prevDate = scope.prevDates !== undefined ? scope.prevDates[p.x] : undefined;
+
+                                tooltip = tooltip === '' ? '<strong>' + date + '</strong><br />' : tooltip;
+
+                                if (_i === 2) {
+                                    tooltip += '<hr /><strong>' + prevDate + '</strong><br />';
+                                }
+
+                                tooltip += this.points[_i >= 2 ? _i - 2 : _i].series.options.name + ': <strong>' + p.y + '</strong><br />';
+                            }
+
+                            return tooltip;
                         }
                     },
                 });
 
                 var chartComparison = function (data, prevData, label, color, i) {
+                    if (data !== undefined && prevData !== undefined) {
+                        if (data !== prevData && data.length > 0) {
 
-                    if (data !== prevData && data.length > 0) {
-
-                        if (chart.series[i] !== undefined) {
-                            chart.series[i].setData(data, true);
-                        }
-                        else {
-                            chart.addSeries({
-                                name: label,
-                                data: data,
-                                color: color,
-                                zIndex: -1
-                            });
+                            if (chart.series[i] !== undefined) {
+                                chart.series[i].setData(data, true);
+                            }
+                            else {
+                                chart.addSeries({
+                                    name: label,
+                                    data: data,
+                                    color: color,
+                                    zIndex: -1
+                                });
+                            }
+                        } else if (data.length === 0 && prevData.length > 0) {
+                            // -- select --
+                            // either remove by index or take last item if i > length
+                            // will be the case on removing the second comparison series
+                            var index = chart.series.length > i ? i : chart.series.length - 1;
+                            chart.series[index].remove();
                         }
                     }
                 }
@@ -77,7 +104,7 @@
                 }, true);
 
                 scope.$watch('prevViews', function (newValue, oldValue) {
-                    chartComparison(newValue, oldValue, 'Comparison - views', '#b1d7e7', 2);                    
+                    chartComparison(newValue, oldValue, 'Comparison - total', '#b1d7e7', 2);                    
                 }, true);
 
                 scope.$watch('prevUnique', function (newValue, oldValue) {

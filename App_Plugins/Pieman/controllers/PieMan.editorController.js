@@ -35,19 +35,23 @@ angular.module("umbraco")
             $scope.showCharts = false;
             $scope.showLoader = false;
             $scope.loadingStatus = [0, 0, 0];
+
+            $scope.prevDates = [];
+            $scope.prevUnique = [];
             $scope.prevViews = [];
-            $scope.uniqueViews = [];
         }
 
         
         // set the comparison, if any
-        $scope.comparisonOptions = [
-            { key: '-- Select --', val: 0 },
-            { key: 'Preceding period', val: 1 },
-            { key: 'Same period last month', val: 2 },
-            { key: 'Same period last year', val: 3 }
-        ];
-        $scope.comparisonType = 0;
+        var setComparisonOptions = function () {
+            $scope.comparisonOptions = [
+                { key: '-- Compare to --', val: 0 },
+                { key: 'Preceding ' + $scope.dateSpan + ' days', val: 1 },
+                { key: 'Same period last month', val: 2 },
+                { key: 'Same period last year', val: 3 }
+            ];
+            $scope.comparisonType = 0;
+        }
 
         $scope.getComparisonData = function () {
 
@@ -67,7 +71,8 @@ angular.module("umbraco")
                 endDate.setDate(endDate.getDate() - 365);
             }
 
-            if ($scope.comparisonType > 0) {
+            if ($scope.comparisonType > 0) {                
+
                 PieManResource.getComparisonChartData($scope.config.profile.Id, startDate.toUTCString(), endDate.toUTCString(), $scope.filter)
                     .then(function (resp) {
                         var len = resp.data.Rows.length, tempV = [], tempU = [];
@@ -83,10 +88,16 @@ angular.module("umbraco")
 
                             tempV.push(views);
                             tempU.push(uniqueViews);
+                            $scope.prevDates.push($filter('date')(new Date(year, month - 1, day), 'EEE, d MMM'));
                         }
                         $scope.prevViews = tempV;
                         $scope.prevUnique = tempU;
                     });
+            }
+            else {
+                $scope.prevUnique = [];
+                $scope.prevViews = [];
+                $scope.prevDates = [];
             }
         }
 
@@ -94,6 +105,8 @@ angular.module("umbraco")
         var getAnalytics = function () {
             
             $scope.showLoader = true;
+
+            setComparisonOptions();
 
             var pagePath = editorState.current.urls[0], len, i;
             if (pagePath.charAt(pagePath.length-1) === '/') {

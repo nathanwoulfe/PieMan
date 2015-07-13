@@ -1,22 +1,24 @@
 ﻿$red: #9d261d;
 $blue: #2e8aea;
-$blueLight: #add8e6; 
+$blueLight: #add8e6;
 $orange: #df7f48;
 
 .pieman-editor {
-
-    position:relative;
+    position: relative;
 
     .btn-settings {
         font-size: 30px;
         cursor: pointer;
-        margin-top:10px;
-        margin-left:15px;
-        color:#ccc;
-        transition:color ease-in-out .2s;
+        margin-top: 10px;
+        margin-left: 15px;
+        color: #ccc;
+        -moz-transition: color ease-in-out .2s;
+        -o-transition: color ease-in-out .2s;
+        -webkit-transition: color ease-in-out .2s;
+        transition: color ease-in-out .2s;
 
         &:hover {
-            color:#aaa;
+            color: #aaa;
         }
     }
 
@@ -42,13 +44,25 @@ $orange: #df7f48;
         }
     }
 
+    .line-wrapper {
+        position:relative;
+
+        select {
+            position:absolute;
+            top:0;
+            right:0;
+        }
+    }
+
     .line {
-        margin-top:20px;
-        margin-bottom:30px;
+        margin-top: 20px;
+        margin-bottom: 30px;
     }
 
     .pie {
-        height:500px;
+        height: 500px;
+        float: left;
+        width: 33.333%;
     }
 
     .pieman-wrapper {
@@ -57,21 +71,20 @@ $orange: #df7f48;
     }
 
     .controls {
-
-        text-align:center;
-        margin-left:0;
+        text-align: center;
+        margin-left: 0;
 
         span {
-            vertical-align:middle;
-            background:#f8f8f8;
-            padding:10px 30px 10px 10px;
-            font-size:14px;
+            vertical-align: middle;
+            background: #f8f8f8;
+            padding: 10px 30px 10px 10px;
+            font-size: 14px;
         }
 
         > div {
-            display:inline-block;
+            display: inline-block;
             position: relative;
-            overflow:hidden;
+            overflow: hidden;
             margin: 0 auto 15px;
             font-size: 24px;
             line-height: 28px;
@@ -92,30 +105,33 @@ $orange: #df7f48;
             text-decoration: underline;
             height: auto;
             padding: 0;
-            margin-top:6px;
+            margin-top: 6px;
 
             &:hover {
-                color:#1d1d1d;
+                color: #1d1d1d;
             }
         }
 
         a {
-            background:$blue;
+            background: $blue;
             color: #fff;
             padding: 8px 8px 8px 10px;
-            width:28px;
-            height:30px;
-            font-size:30px;
+            width: 28px;
+            height: 30px;
+            font-size: 30px;
             text-decoration: none;
             -webkit-border-radius: 50%;
             -moz-border-radius: 50%;
             border-radius: 50%;
-            margin-left:-25px;
-            line-height:30px;        
-            transition:color ease-in-out .2s;                
+            margin-left: -25px;
+            line-height: 30px;
+            -moz-transition: color ease-in-out .2s;
+            -o-transition: color ease-in-out .2s;
+            -webkit-transition: color ease-in-out .2s;
+            transition: color ease-in-out .2s;
 
             &:hover {
-                background:$blue;
+                background: $blue;
                 color: #aaa;
                 text-decoration: none;
                 cursor: pointer;
@@ -129,26 +145,24 @@ $orange: #df7f48;
             }
 
             &.icon-delete {
-                padding-left:8px;
-                width:30px;
+                padding-left: 8px;
+                width: 30px;
             }
         }
     }
 
-    .pie {
-        float: left;
-        width: 33.333%;
-    }
-
     .btn {
         opacity: 1;
-        background:#fff;
-        border:none;
-        padding:5px 0;
-        transition:background .2s ease-in-out;
+        background: #fff;
+        border: none;
+        padding: 5px 0;
+        -moz-transition: background .2s ease-in-out;
+        -o-transition: background .2s ease-in-out;
+        -webkit-transition: background .2s ease-in-out;
+        transition: background .2s ease-in-out;
 
         &:hover {
-            background:#ccc;
+            background: #ccc;
         }
 
         .disabled {
@@ -159,6 +173,18 @@ $orange: #df7f48;
             transition: opacity ease-in-out .2s;
         }
     }
+
+    .highcharts-tooltip {
+                
+        hr {
+            margin: 5px 0;
+            border: 0;
+            border-top: 1px solid #555;
+        }
+
+    }
+
+
 }
 
 
@@ -168,67 +194,75 @@ $orange: #df7f48;
 .pieman-settings {
 
     .umb-pane {
-        margin:0;
+        margin: 0;
     }
 
     header {
-        background:#1d1d1d;
-        padding:15px 15px 7px;
-        margin:0 0 15px 0;
-        color:#d9d9d9;
+        background: #1d1d1d;
+        padding: 15px 15px 7px;
+        margin: 0 0 15px 0;
+        color: #d9d9d9;
 
         h3 {
-            font-size:38.5px;
+            font-size: 38.5px;
         }
 
 
-        h3 span{
+        h3 span {
             color: #df7f48;
         }
 
         h4 {
-            text-transform:uppercase;
-            font-size:18px;
+            text-transform: uppercase;
+            font-size: 18px;
         }
     }
 
     section {
-        padding:15px;
-        
+        padding: 15px;
+
         .btns {
-            text-align:right;
-            display:block;
+            text-align: right;
+            display: block;
 
             button {
-                display:inline-block;
-                margin-left:0;
+                display: inline-block;
+                margin-left: 0;
             }
-        }     
-        
+        }
+
         h5 {
-            margin:5px 0;
-            text-transform:none;
-        }   
+            margin: 5px 0;
+            text-transform: none;
+        }
     }
 }
 
 
 @-webkit-keyframes bg-pulse {
-  0% {
-    background:$blue; }
+    0% {
+        background: $blue;
+    }
 
-  50% {
-    background:$blueLight; }
+    50% {
+        background: $blueLight;
+    }
 
-  100% {
-    background:$blue; } }
+    100% {
+        background: $blue;
+    }
+}
 
 @keyframes bg-pulse {
-  0% {
-    background:$blue; }
+    0% {
+        background: $blue;
+    }
 
-  50% {
-    background:$blueLight; }
+    50% {
+        background: $blueLight;
+    }
 
-  100% {
-    background:$blue; } }
+    100% {
+        background: $blue;
+    }
+}
