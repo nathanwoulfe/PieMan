@@ -75,7 +75,7 @@ angular.module("umbraco")
 
                 PieManResource.getComparisonChartData($scope.config.profile.Id, startDate.toUTCString(), endDate.toUTCString(), $scope.filter)
                     .then(function (resp) {
-                        var len = resp.data.Rows.length, tempV = [], tempU = [];
+                        var len = resp.data.Rows.length, tempV = [], tempU = [], tempD = [];
 
                         for (i = 0; i < len; i++) {
 
@@ -88,10 +88,11 @@ angular.module("umbraco")
 
                             tempV.push(views);
                             tempU.push(uniqueViews);
-                            $scope.prevDates.push($filter('date')(new Date(year, month - 1, day), 'EEE, d MMM'));
+                            tempD.push($filter('date')(new Date(year, month - 1, day), 'EEE, d MMM'));
                         }
                         $scope.prevViews = tempV;
                         $scope.prevUnique = tempU;
+                        $scope.prevDates = tempD;
                     });
             }
             else {

@@ -3,5 +3,6 @@ obj/
 packages/
 properties/
 *.config
-uStats.sln
-uStats.v12.suo
+*.sln
+*.suo
+*.user

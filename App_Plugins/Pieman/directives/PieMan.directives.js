@@ -57,10 +57,10 @@
                                 tooltip = tooltip === '' ? '<strong>' + date + '</strong><br />' : tooltip;
 
                                 if (_i === 2) {
-                                    tooltip += '<hr /><strong>' + prevDate + '</strong><br />';
+                                    tooltip += '<hr /><span><strong>' + prevDate + '</strong></span><br />';
                                 }
 
-                                tooltip += this.points[_i >= 2 ? _i - 2 : _i].series.options.name + ': <strong>' + p.y + '</strong><br />';
+                                tooltip += '<span>' + this.points[_i >= 2 ? _i - 2 : _i].series.options.name + ': <strong>' + p.y + '</strong></span><br />';
                             }
 
                             return tooltip;
