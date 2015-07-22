@@ -1,7 +1,5 @@
-bin/
 obj/
 packages/
-properties/
 *.config
 *.sln
 *.suo
