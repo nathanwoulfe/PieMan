@@ -131,6 +131,17 @@
     .pieman-editor .highcharts-tooltip hr ~ span {
       color: #aaa; }
 
+.pieman-error {
+  text-align: center; }
+  .pieman-error .error-block {
+    background: #df7f48;
+    display: inline-block;
+    padding: 5px 10px; }
+    .pieman-error .error-block p {
+      color: #fff; }
+      .pieman-error .error-block p:last-of-type {
+        margin-bottom: 0; }
+
 /*** settings ***/
 .pieman-settings .umb-pane {
   margin: 0; }

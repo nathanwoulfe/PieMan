@@ -31,10 +31,14 @@ angular.module("umbraco")
 
         // back to the start
         var reset = function () {
+            $scope.pagePath = '';
             $scope.dateSpan = 28;
             $scope.showCharts = false;
             $scope.showLoader = false;
+            $scope.showError = false;
+            $scope.responseStatus = [0, 0, 0];
             $scope.loadingStatus = [0, 0, 0];
+            $scope.noData = [0, 0, 0];
 
             $scope.prevDates = [];
             $scope.prevUnique = [];
@@ -106,101 +110,135 @@ angular.module("umbraco")
         var getAnalytics = function () {
             
             $scope.showLoader = true;
+            $scope.pagePath = editorState.current.urls[0];
 
             setComparisonOptions();
 
-            var pagePath = editorState.current.urls[0], len, i;
-            if (pagePath.charAt(pagePath.length-1) === '/') {
-                pagePath = pagePath.slice(0,-1);
+            var len, i;
+            if ($scope.pagePath.length > 1 && $scope.pagePath.charAt($scope.pagePath.length - 1) === '/') {
+                $scope.pagePath = $scope.pagePath.slice(0, -1);
             }
 
-            $scope.filter = 'ga:pagePath==' + pagePath;
+            $scope.filter = 'ga:pagePath==' + $scope.pagePath;
 
             PieManResource.getViewsDatapoints($scope.config.profile.Id, $scope.dateSpan, $scope.filter)
                 .then(function (resp) {
 
-                    var d = resp.data.Rows[0].Cells;
-                    $scope.totalPageViews = d[0].Value;
-                    $scope.avgTimeOnPage = parseInt(d[1].Value, 10).toFixed(0);
-                    $scope.totalUniqueViews = d[2].Value;
-                    $scope.totalVisitors = d[4].Value;
+                    $scope.responseStatus[0] = 1;
 
-                    var nv = d[3].Value;
-                    $scope.newVisits = [
-                        ['New', parseFloat(nv)],
-                        ['Returning', 100 - nv]
-                    ];
+                    if (resp.data.Rows !== undefined && resp.data.Rows.length) {
+                        var d = resp.data.Rows[0].Cells;
+                        $scope.totalPageViews = d[0].Value;
+                        $scope.avgTimeOnPage = parseInt(d[1].Value, 10).toFixed(0);
+                        $scope.totalUniqueViews = d[2].Value;
+                        $scope.totalVisitors = d[4].Value;
 
-                    $scope.loadingStatus[0] = 1;
+                        var nv = d[3].Value;
+                        $scope.newVisits = [
+                            ['New', parseFloat(nv)],
+                            ['Returning', 100 - nv]
+                        ];
+
+                        $scope.loadingStatus[0] = 1;
+                    }
+                    else {
+                        $scope.noData[0] = 1;
+                    }
+
                     checkLoadingStatus();
                 });
 
             PieManResource.getViewsChartData($scope.config.profile.Id, $scope.dateSpan, $scope.filter)
                 .then(function (resp) {
 
-                    $scope.dates = [];
-                    $scope.views = [];
-                    $scope.unique = [];
-                    len = resp.data.Rows.length;
+                    $scope.responseStatus[1] = 1;
 
-                    for (i = 0; i < len; i++) {
+                    if (resp.data.Rows !== undefined && resp.data.Rows.length) {
 
-                        var o = resp.data.Rows[i].Cells,
-                            views = parseInt(o[1].Value),
-                            uniqueViews = parseInt(o[2].Value),
-                            year = o[0].Value.substr(0, 4),
-                            month = o[0].Value.substr(4, 2),
-                            day = o[0].Value.substr(6, 2);
+                        $scope.dates = [];
+                        $scope.views = [];
+                        $scope.unique = [];
+                        len = resp.data.Rows.length;
 
-                        $scope.dates.push($filter('date')(new Date(year, month - 1, day), 'EEE, d MMM'));
-                        $scope.views.push(views);
-                        $scope.unique.push(uniqueViews);
+                        for (i = 0; i < len; i++) {
+
+                            var o = resp.data.Rows[i].Cells,
+                                views = parseInt(o[1].Value),
+                                uniqueViews = parseInt(o[2].Value),
+                                year = o[0].Value.substr(0, 4),
+                                month = o[0].Value.substr(4, 2),
+                                day = o[0].Value.substr(6, 2);
+
+                            $scope.dates.push($filter('date')(new Date(year, month - 1, day), 'EEE, d MMM'));
+                            $scope.views.push(views);
+                            $scope.unique.push(uniqueViews);
+                        }
+
+                        $scope.loadingStatus[1] = 1;
+                    }
+                    else {
+                        $scope.noData[1] = 1;
                     }
 
-                    $scope.loadingStatus[1] = 1;
                     checkLoadingStatus();
                 });
 
             PieManResource.getBrowserDatapoints($scope.config.profile.Id, $scope.dateSpan, $scope.filter)
                 .then(function (resp) {
 
-                    $scope.deviceCategory = [
-                        ['Desktop', resp.data.browserCatData.desktop],
-                        ['Mobile', resp.data.browserCatData.mobile],
-                        ['Tablet', resp.data.browserCatData.tablet]
-                    ];
+                    $scope.responseStatus[2] = 1;
 
-                    $scope.browserType = [];
-                    len = resp.data.browserData.length;
-                    for (i = 0; i < len; i++) {
+                    if (resp.data.browserData !== undefined && resp.data.browserData.length) {
 
-                        var o = resp.data.browserData[i],
-                            c = 0,
-                            versionsArr = [];
+                        $scope.deviceCategory = [
+                            ['Desktop', resp.data.browserCatData.desktop],
+                            ['Mobile', resp.data.browserCatData.mobile],
+                            ['Tablet', resp.data.browserCatData.tablet]
+                        ];
 
-                        $.each(o.version, function (k, v) {
-                            versionsArr.push([k, v]);
-                            c += v;
-                        } );
+                        $scope.browserType = [];
+                        len = resp.data.browserData.length;
+                        for (i = 0; i < len; i++) {
 
-                        $scope.browserType.push({
-                            name: o.browser,
-                            y: c,
-                            drilldown: {
-                                name: o.browser + ' versions',
-                                data: versionsArr
-                            }
-                        });
+                            var o = resp.data.browserData[i],
+                                c = 0,
+                                versionsArr = [];
+
+                            $.each(o.version, function (k, v) {
+                                versionsArr.push([k, v]);
+                                c += v;
+                            });
+
+                            $scope.browserType.push({
+                                name: o.browser,
+                                y: c,
+                                drilldown: {
+                                    name: o.browser + ' versions',
+                                    data: versionsArr
+                                }
+                            });
+                        }
+                        $scope.loadingStatus[2] = 1;
                     }
-                    $scope.loadingStatus[2] = 1;
+                    else {
+                        $scope.noData[2] = 1;
+                    }
+
                     checkLoadingStatus();
                 });
         }
 
         var checkLoadingStatus = function () {
-            if ($scope.loadingStatus.indexOf(0) === -1) {
-                $scope.showLoader = false;
-                $scope.showCharts = true;
+            if ($scope.responseStatus.indexOf(0) === -1) {
+                if ($scope.loadingStatus.indexOf(0) === -1) {
+                    $scope.showLoader = false;
+                    $scope.showCharts = true;
+                    $scope.showError = false;
+                } else if ($scope.noData.indexOf(1) !== -1) {
+                    $scope.showCharts = false;
+                    $scope.showLoader = false;
+                    $scope.showError = true;
+                }
             }
         }
 

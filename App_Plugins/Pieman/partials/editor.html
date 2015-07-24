@@ -8,6 +8,13 @@
         </div>
     </div>
 
+    <div class="pieman-error" ng-show="showError">
+        <div class="error-block">
+            <p>No data available for the current page.</p>
+            <p>PieMan's query included the page path '{{pagePath}}'</p>
+        </div>
+    </div>
+
     <div class="pieman-wrapper" ng-show="showCharts">
 
         <div class="stat-banner">

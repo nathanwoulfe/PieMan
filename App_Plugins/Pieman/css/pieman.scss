@@ -191,7 +191,24 @@ $orange: #df7f48;
 
 }
 
+.pieman-error {
 
+    text-align:center;
+
+    .error-block {
+        background:$orange;
+        display:inline-block;
+        padding:5px 10px;
+
+        p {
+            color:#fff;
+
+            &:last-of-type {
+                margin-bottom:0;
+            }
+        }
+    }
+}
 
 /*** settings ***/
 

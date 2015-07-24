@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PieMan.Models;
 using Skybrud.Social.Google;
 using Skybrud.Social.Google.Analytics.Objects;
 using Skybrud.Social.Google.Analytics.Responses;
@@ -7,13 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Text;
-using System.Web.Http;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
-using PieMan;
-using PieMan.Models;
 
 namespace PieMan.Controllers
 {
