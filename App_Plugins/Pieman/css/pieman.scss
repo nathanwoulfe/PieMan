@@ -255,6 +255,10 @@ $orange: #df7f48;
         h5 {
             margin: 5px 0;
             text-transform: none;
+
+            localize {
+                text-transform:uppercase;
+            }
         }
     }
 }

@@ -41,6 +41,10 @@ angular.module("umbraco.resources")
                 }
 
                 return dateFilter;
+            },
+
+            gettranslations: function (culture) {
+                return $http.get('backoffice/pieman/translationsapi/gettranslations?culture=' + culture);
             }
 
         };

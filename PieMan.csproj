@@ -34,6 +34,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\uStats.Site\bin\businesslogic.dll</HintPath>
     </Reference>
+    <Reference Include="cms, Version=1.0.5557.19142, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\uStats.Site\bin\cms.dll</HintPath>
+    </Reference>
+    <Reference Include="interfaces, Version=1.0.5557.19139, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\uStats.Site\bin\interfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -41,6 +49,7 @@
       <HintPath>packages\Skybrud.Social.0.9.2\lib\net40\Skybrud.Social.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -73,6 +82,9 @@
       <DependentUpon>OAuthCallback.aspx.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\PropertyEditorController.cs" />
+    <Compile Include="Controllers\TranslationsApiController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Settings.cs" />
     <Compile Include="PieManConfig.cs" />
     <Compile Include="App_Plugins\Pieman\auth\OAuth.aspx.cs">
@@ -88,9 +100,14 @@
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Translations.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="App_Plugins\Pieman\config\lang\da.xml" />
+    <Content Include="App_Plugins\Pieman\config\lang\en.xml" />
+    <Content Include="App_Plugins\Pieman\config\lang\en_us.xml" />
     <Content Include="App_Plugins\Pieman\css\pieman.css">
       <DependentUpon>pieman.scss</DependentUpon>
     </Content>
@@ -114,6 +131,7 @@
     <Content Include="App_Plugins\Pieman\controllers\PieMan.settingsController.js" />
     <Content Include="App_Plugins\Pieman\directives\PieMan.directives.js" />
     <Content Include="App_Plugins\Pieman\lib\highcharts.js" />
+    <Content Include="App_Plugins\Pieman\lib\xml2json.js" />
     <Content Include="App_Plugins\Pieman\partials\editor.html" />
     <Content Include="App_Plugins\Pieman\partials\label.html" />
     <Content Include="App_Plugins\Pieman\partials\settings.html" />

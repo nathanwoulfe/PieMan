@@ -1,8 +1,8 @@
 <div ng-controller="PieMan.EditorController" class="pieman-editor">
     <div class="controls">
         <div>
-            <span ng-show="!showCharts">Show analytics for previous&nbsp;<input type="text" ng-model="dateSpan" />&nbsp;days</span>
-            <span ng-show="showCharts">Showing analytics for previous {{dateSpan}} days</span>
+            <span ng-show="!showCharts"><localize key="pieman_showAnalyticsForPrevious">Show analytics for previous</localize>&nbsp;<input type="text" ng-model="dateSpan" />&nbsp;<localize key="pieman_days">days</localize></span>
+            <span ng-show="showCharts"><localize key="pieman_showingAnalyticsForPrevious">Showing analytics for previous</localize> {{dateSpan}} <localize key="pieman_days">days</localize></span>
             <a class="btn icon" ng-click="toggleState()" ng-class="{'loading': showLoader, 'icon-play': !showCharts, 'icon-delete': showCharts}"></a>
             <i class="icon icon-settings hover-show pull-right btn-settings" ng-click="settingsDialog()" title="Settings"></i>
         </div>
@@ -10,8 +10,8 @@
 
     <div class="pieman-error" ng-show="showError">
         <div class="error-block">
-            <p>No data available for the current page.</p>
-            <p>PieMan's query included the page path '{{pagePath}}'</p>
+            <p><localize key="pieman_noData">No data available for the current page</localize>.</p>
+            <p><localize key="pieman_noDataQuery">PieMan's query included the page path</localize> '{{pagePath}}'</p>
         </div>
     </div>
 
@@ -19,19 +19,19 @@
 
         <div class="stat-banner">
             <div id="totalVisitors" class="stat">
-                Total visitors in last <span class="days" ng-bind="dateSpan"></span> days<br />
+                <localize key="pieman_totalVisitorsInLast">Total visitors in last</localize> <span class="days" ng-bind="dateSpan"></span> <localize key="pieman_days">days</localize><br />
                 <span class="value" ng-cloak ng-bind="totalVisitors|number"></span>
             </div>
             <div id="totalViews" class="stat">
-                Total pageviews in last <span class="days" ng-bind="dateSpan"></span> days<br />
+                <localize key="pieman_totalPageviewsInLast">Total pageviews in last</localize> <span class="days" ng-bind="dateSpan"></span> <localize key="pieman_days">days</localize><br />
                 <span class="value" ng-cloak ng-bind="totalPageViews|number"></span>
             </div>
             <div id="uniqueViews" class="stat">
-                Unique pageviews in last <span class="days" ng-bind="dateSpan"></span> days<br />
+                <localize key="pieman_uniquePageviewsInLast">Unique pageviews in last</localize> <span class="days" ng-bind="dateSpan"></span> <localize key="pieman_days">days</localize><br />
                 <span class="value" ng-cloak ng-bind="totalUniqueViews|number"></span>
             </div>
             <div id="avgTime" class="stat">
-                Average time on page<br />
+                <localize key="pieman_averageTimeOnPage">Average time on page</localize><br />
                 <span class="value" ng-cloak ng-bind="avgTimeOnPage|secondsToString"></span>
             </div>
         </div>
@@ -44,26 +44,27 @@
                  prev-unique="prevUnique"
                  dates="dates"
                  prev-dates="prevDates"
-                 label="'Page views'">
+                 translations="translations"
+                 label="translations.pageViews">
             </div>
             <select ng-model="comparisonType" ng-options="o.val as o.key for o in comparisonOptions" ng-change="getComparisonData()"></select>
         </div>
 
         <div class="PieMan-pie pie"
              data="newVisits"
-             label="'New vs returning'">
+             label="translations.newVsReturning">
         </div>
 
         <div class="PieMan-pie pie"
              data="deviceCategory"
-             label="'Device category'">
+             label="translations.deviceCategory">
         </div>
 
         <div class="PieMan-drilldown-pie pie"
              data="browserType"
-             label="'Browser version'"
-             drill-in="'Click to view versions'"
-             drill-out="'Click to view all browsers'">
+             label="translations.browserVersion"
+             drill-in="translations.clickToViewVersions"
+             drill-out="translations.clickToViewAllBrowsers">
         </div>
 
     </div>

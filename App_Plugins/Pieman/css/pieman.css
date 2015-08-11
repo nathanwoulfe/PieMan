@@ -168,6 +168,8 @@
   .pieman-settings section h5 {
     margin: 5px 0;
     text-transform: none; }
+    .pieman-settings section h5 localize {
+      text-transform: uppercase; }
 
 @-webkit-keyframes bg-pulse {
   0% {

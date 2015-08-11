@@ -1,9 +1,33 @@
 angular.module("umbraco")
-    .controller("PieMan.EditorController", function ($scope, $http, PieManResource, $filter, editorState, contentResource, PieManSettingsResource, dialogService, dataTypeResource) {
+    .controller("PieMan.EditorController", function ($scope, $http, PieManResource, $filter, editorState, userService, contentResource, PieManSettingsResource, dialogService, dataTypeResource) {
         
         $scope.fontStack = '"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif!important';
         Highcharts.theme = PieManResource.highchartsTheme($scope.fontStack)
         Highcharts.setOptions(Highcharts.theme);
+
+        // need the current user locale to apply translations
+        userService.getCurrentUser()
+            .then(function (resp) {
+                var locale = resp.locale;
+                if (locale.toLowerCase() === 'en-us') {
+                    locale = 'en_us';
+                }
+                else {
+                    locale = locale.substr(0, 2);
+                }
+
+                getTranslations(locale);
+
+            });
+
+        // fetch locale
+        function getTranslations(locale) {
+            PieManSettingsResource.gettranslations(locale)
+                .then(function (resp) {
+                    $scope.translations = resp.data;
+                    init();
+                });
+        };
 
         // get the account, profile and settings info from the property editor prevalues
         $scope.config = {};
@@ -15,7 +39,6 @@ angular.module("umbraco")
                 reset();
             });
         }
-        init();
         
         // wire up the settings dialog
         $scope.settingsDialog = function () {
@@ -49,10 +72,10 @@ angular.module("umbraco")
         // set the comparison, if any
         var setComparisonOptions = function () {
             $scope.comparisonOptions = [
-                { key: '-- Compare to --', val: 0 },
-                { key: 'Preceding ' + $scope.dateSpan + ' days', val: 1 },
-                { key: 'Same period last month', val: 2 },
-                { key: 'Same period last year', val: 3 }
+                { key: $scope.translations.compareTo, val: 0 },
+                { key: $scope.translations.preceding + ' ' + $scope.dateSpan + ' ' + $scope.translations.days, val: 1 },
+                { key: $scope.translations.samePeriodLast + ' ' + $scope.translations.month, val: 2 },
+                { key: $scope.translations.samePeriodLast + ' ' + $scope.translations.year, val: 3 }
             ];
             $scope.comparisonType = 0;
         }
@@ -135,8 +158,8 @@ angular.module("umbraco")
 
                         var nv = d[3].Value;
                         $scope.newVisits = [
-                            ['New', parseFloat(nv)],
-                            ['Returning', 100 - nv]
+                            [$scope.translations.new, parseFloat(nv)],
+                            [$scope.translations.returning, 100 - nv]
                         ];
 
                         $scope.loadingStatus[0] = 1;
@@ -190,17 +213,23 @@ angular.module("umbraco")
 
                     if (resp.data.browserData !== undefined && resp.data.browserData.length) {
 
-                        $scope.deviceCategory = [
-                            ['Desktop', resp.data.browserCatData.desktop],
-                            ['Mobile', resp.data.browserCatData.mobile],
-                            ['Tablet', resp.data.browserCatData.tablet]
-                        ];
+                        var bd = resp.data.browserData,
+                            bcd = resp.data.browserCatData,
+                            l = bd.length,
+                            i;
 
+                        $scope.deviceCategory = [];
                         $scope.browserType = [];
-                        len = resp.data.browserData.length;
-                        for (i = 0; i < len; i++) {
 
-                            var o = resp.data.browserData[i],
+                        for (i in types = ['desktop', 'mobile', 'tablet']) {
+                            var t = types[i];
+                            if (bcd.hasOwnProperty(t))
+                                $scope.deviceCategory.push([$scope.translations[t], bcd[t]]);
+                        }
+
+                        for (i = 0; i < l; i++) {
+
+                            var o = bd[i],
                                 c = 0,
                                 versionsArr = [];
 
@@ -213,7 +242,7 @@ angular.module("umbraco")
                                 name: o.browser,
                                 y: c,
                                 drilldown: {
-                                    name: o.browser + ' versions',
+                                    name: o.browser + ' ' + $scope.translations.versions,
                                     data: versionsArr
                                 }
                             });

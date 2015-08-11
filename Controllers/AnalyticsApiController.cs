@@ -129,25 +129,36 @@ namespace PieMan.Controllers
                 Sorting = new AnalyticsSortOptions().AddDescending(AnalyticsMetric.Visitors),
                 MaxResults = 10
             });
-            Dictionary<string, int> dictionary1 = new Dictionary<string, int>();
+
+            Dictionary<string, int> deviceCategoryDict = new Dictionary<string, int>();
             List<ApiResponse.BrowserData> list = new List<ApiResponse.BrowserData>();
-            Dictionary<string, Dictionary<string, int>> dictionary2 = new Dictionary<string, Dictionary<string, int>>();
+            Dictionary<string, Dictionary<string, int>> browserDict = new Dictionary<string, Dictionary<string, int>>();
+
             foreach (AnalyticsDataRow analyticsDataRow in data.Rows)
             {
-                string key1 = analyticsDataRow.Cells[0].ToString();
-                string key2 = analyticsDataRow.Cells[1].ToString();
-                string index1 = analyticsDataRow.Cells[2].ToString();
-                int num = Convert.ToInt32(analyticsDataRow.Cells[3].Value);
-                if (!dictionary1.ContainsKey(key2))
-                    dictionary1.Add(key2, 0);
+                string browserName = analyticsDataRow.Cells[0].ToString();
+                string deviceCategory = analyticsDataRow.Cells[1].ToString();
+                string browserVersion = analyticsDataRow.Cells[2].ToString();
+                int views = Convert.ToInt32(analyticsDataRow.Cells[3].Value);
+                
                 Dictionary<string, int> dictionary3;
                 string index2;
-                (dictionary3 = dictionary1)[index2 = key2] = dictionary3[index2] + num;
-                if (!dictionary2.ContainsKey(key1))
-                    dictionary2.Add(key1, new Dictionary<string, int>());
-                dictionary2[key1][index1] = num;
+                
+                if (!deviceCategoryDict.ContainsKey(deviceCategory))
+                {
+                    deviceCategoryDict.Add(deviceCategory, 0);
+                }
+                
+                (dictionary3 = deviceCategoryDict)[index2 = deviceCategory] = dictionary3[index2] + views;
+                
+                if (!browserDict.ContainsKey(browserName))
+                {
+                    browserDict.Add(browserName, new Dictionary<string, int>());
+                }
+                browserDict[browserName][browserVersion] = views;
             }
-            foreach (KeyValuePair<string, Dictionary<string, int>> keyValuePair in Enumerable.ToDictionary<KeyValuePair<string, Dictionary<string, int>>, string, Dictionary<string, int>>(Enumerable.Take<KeyValuePair<string, Dictionary<string, int>>>((IEnumerable<KeyValuePair<string, Dictionary<string, int>>>)dictionary2, 5), (Func<KeyValuePair<string, Dictionary<string, int>>, string>)(t => t.Key), (Func<KeyValuePair<string, Dictionary<string, int>>, Dictionary<string, int>>)(t => t.Value)))
+
+            foreach (KeyValuePair<string, Dictionary<string, int>> keyValuePair in Enumerable.ToDictionary<KeyValuePair<string, Dictionary<string, int>>, string, Dictionary<string, int>>(Enumerable.Take<KeyValuePair<string, Dictionary<string, int>>>((IEnumerable<KeyValuePair<string, Dictionary<string, int>>>)browserDict, 5), (Func<KeyValuePair<string, Dictionary<string, int>>, string>)(t => t.Key), (Func<KeyValuePair<string, Dictionary<string, int>>, Dictionary<string, int>>)(t => t.Value)))
                 list.Add(new ApiResponse.BrowserData()
                 {
                     browser = keyValuePair.Key,
@@ -156,7 +167,7 @@ namespace PieMan.Controllers
             return this.Response((object)new ApiResponse.BrowserDataObject()
             {
                 browserData = list,
-                browserCatData = dictionary1
+                browserCatData = deviceCategoryDict
             });
         }
 
