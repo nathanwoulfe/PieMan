@@ -31,13 +31,13 @@
     <key alias="returning">Returning</key>
     <key alias="comparison">Comparison</key>
 
-    <key alias="infoMessage">Before you can use Analytics, you need to choose a profile you wish to use to view statistics.</key>
+    <key alias="infoMessage">Before you can use PieMan, you need to choose a profile you wish to use to view statistics.</key>
     <key alias="settings">Settings</key>
     <key alias="settingsSaved">Settings saved</key>
     <key alias="accountDetailsSaved">Account details saved</key>
     <key alias="profileDetailsSaved">Profile details saved</key>
     <key alias="loginWithGoogleViaOAuth">Log with Google via oAuth</key>
-    <key alias="authorisation">Authorisation</key>
+    <key alias="authorization">Authorisation</key>
     <key alias="authorize">Authorise</key>
     <key alias="account">Account</key>
     <key alias="profile">Profile</key>
@@ -55,7 +55,8 @@
     <key alias="noStateSpecified">No state specified</key>
     <key alias="sorrySessionExpired">Sorry - your session has most likely expired</key>
     <key alias="somethingWentWrong">Okay. Something went wrong</key>
-    <key alias="informationSavedMessage"><![CDATA[Hi there %0%. We have saved your information to a config file, so Umbraco can pull stats from your Google Analytics account.<br /><br />You can now <a href='javascript:self.close();'>close this window</a>.]]></key>
+    <key alias="informationSavedMessage"><![CDATA[Hi there %0%. We have saved your information to a config file, so Umbraco can pull stats from your Google Analytics account.<br /><br />Close this window and go grab a piping hot serve of stats - you'll need to reopen the settings panel and select an account and profile.]]></key>
     <key alias="noAccess">Sorry you do not have access.</key>
   </area>
 </language>
+

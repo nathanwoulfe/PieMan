@@ -2,6 +2,7 @@
 using Skybrud.Social.Google;
 using Umbraco.Web.UI.Pages;
 using System.Web.UI.WebControls;
+using umbraco;
 
 namespace PieMan.BackOffice
 {
@@ -11,7 +12,7 @@ namespace PieMan.BackOffice
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
             // Get the state from the query string
             string state = Request.QueryString["state"];
 
@@ -19,8 +20,7 @@ namespace PieMan.BackOffice
             if (String.IsNullOrWhiteSpace(state))
             {
                 //Ouput an error message
-                _content.Text += "No state specified.";
-                
+                _content.Text += ui.Text("pieman", "noAccess");                
                 return;
             }
 
@@ -31,7 +31,7 @@ namespace PieMan.BackOffice
             if (session == null)
             {
                 //Ouput an error message
-                _content.Text += "Sorry - your session has most likely expired.";
+                _content.Text += ui.Text("pieman", "sorrySessionExpired");
                 return;
             }
 
@@ -42,7 +42,7 @@ namespace PieMan.BackOffice
             if (String.IsNullOrWhiteSpace(refreshToken))
             {
                 //Ouput an error message
-                _content.Text += "Okay. Something went wrong.";
+                _content.Text += ui.Text("pieman", "somethingWentWrong");
                 return;
             }
 
@@ -66,7 +66,7 @@ namespace PieMan.BackOffice
             catch
             {
                 //Ouput an error message
-                _content.Text += "Okay. Something went wrong.";
+                _content.Text += ui.Text("pieman", "somethingWentWrong");
             }
 
             // Clear the session state

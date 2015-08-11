@@ -1,5 +1,5 @@
 ﻿angular.module("umbraco").controller("PieMan.SettingsController",
-    function ($scope, PieManSettingsResource, notificationsService) {
+    function ($scope, PieManSettingsResource, notificationsService, localizationService) {
 
         $scope.settings = $scope.dialogData.settings;
         $scope.selectedaccount = $scope.dialogData.account;
@@ -75,13 +75,13 @@
 
             if ($scope.dialogData.account.Id != '') {
                 PieManSettingsResource.saveprevalue($scope.dialogData.account, "account").then(function (response) {
-                    notificationsService.success('Success', 'Account details have been saved');
+                    notificationsService.success(localizationService.localize("pieman", "accountDetailsSaved"));
                 });
             }
 
             if ($scope.dialogData.profile.Id != '') {
                 PieManSettingsResource.saveprevalue($scope.dialogData.profile, "profile").then(function (response) {
-                    notificationsService.success('Success', 'Profile details have been saved');
+                    notificationsService.success(localizationService.localize("pieman", "profileDetailsSaved"));
                 });
             }           
 

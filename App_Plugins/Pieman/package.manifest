@@ -43,8 +43,7 @@
         '~/App_Plugins/PieMan/directives/PieMan.directives.js',
 		'~/App_Plugins/PieMan/resources/PieMan.statsResource.js',
 		'~/App_Plugins/PieMan/resources/PieMan.settingsResource.js',
-		'~/App_Plugins/PieMan/lib/highcharts.js',
-		'~/App_Plugins/PieMan/lib/xml2json.js'
+		'~/App_Plugins/PieMan/lib/highcharts.js'
     ]
 	,
 	css: [

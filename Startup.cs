@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,10 +44,13 @@ namespace PieMan
         void InstalledPackage_BeforeDelete(InstalledPackage sender, System.EventArgs e)
         {
             //Check which package is being uninstalled
-            if (sender.Data.Name == "PieMan - Simple Analytics")
+            if (sender.Data.Name == "PieMan Analytics")
             {
                 Translations.RemoveTranslations();
-                WebConfigurationManager.AppSettings.Remove(AppSettingKey);
+
+                var webConfig = WebConfigurationManager.OpenWebConfiguration("/");
+                webConfig.AppSettings.Settings.Remove(AppSettingKey);
+                webConfig.Save();
             }
         }
     }

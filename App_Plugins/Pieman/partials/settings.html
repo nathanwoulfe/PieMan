@@ -8,14 +8,14 @@
             </h3>
             <h4><localize key="pieman_settings">Settings</localize></h4>
         </header>
-        <section>
+        <section>{{translations.loginWithGoogleViaOAuth}}
             <div ng-hide="isAuthd">
-                <umb-control-group label="Google oAuth" description="Link your Google Analytics account with PieMan.">
+                <umb-control-group label="@pieman_authorization" description="@pieman_loginWithGoogleViaOAuth">
                     <button class="btn btn-success" ng-click="auth()"><span class="icon-lock"></span> <localize key="pieman_authorize">Authorize</localize></button>
                 </umb-control-group>
             </div>
 
-            <div class="umb-property">
+            <div class="umb-property" ng-show="isAuthd">
                 <div class="control-group umb-control-group">
                     <div class="umb-el-wrap">
                         <div class="controls controls-row">

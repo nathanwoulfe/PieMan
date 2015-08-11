@@ -131,7 +131,6 @@
     <Content Include="App_Plugins\Pieman\controllers\PieMan.settingsController.js" />
     <Content Include="App_Plugins\Pieman\directives\PieMan.directives.js" />
     <Content Include="App_Plugins\Pieman\lib\highcharts.js" />
-    <Content Include="App_Plugins\Pieman\lib\xml2json.js" />
     <Content Include="App_Plugins\Pieman\partials\editor.html" />
     <Content Include="App_Plugins\Pieman\partials\label.html" />
     <Content Include="App_Plugins\Pieman\partials\settings.html" />
