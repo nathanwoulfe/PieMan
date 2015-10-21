@@ -75,15 +75,19 @@
 
             if ($scope.dialogData.account.Id != '') {
                 PieManSettingsResource.saveprevalue($scope.dialogData.account, "account").then(function (response) {
-                    notificationsService.success(localizationService.localize("pieman", "accountDetailsSaved"));
+                    localizationService.localize('pieman_accountDetailsSaved').then(function (val) {
+                        notificationsService.success('Success', val);
+                    });
                 });
             }
 
             if ($scope.dialogData.profile.Id != '') {
                 PieManSettingsResource.saveprevalue($scope.dialogData.profile, "profile").then(function (response) {
-                    notificationsService.success(localizationService.localize("pieman", "profileDetailsSaved"));
+                    localizationService.localize('pieman_profileDetailsSaved').then(function (val) {
+                        notificationsService.success('Success', val);
+                    });
                 });
-            }           
+            }
 
             $scope.submit();
         };
