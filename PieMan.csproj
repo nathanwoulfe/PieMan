@@ -140,8 +140,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(TargetPath)" "D:\uStats\uStats.Site\bin"
-xcopy /exclude:$(SolutionDir)excludefrombuildevent.txt "$(ProjectDir)App_Plugins\*.*" "D:\uStats\uStats.Site\App_Plugins" /Y /E
+    <PostBuildEvent>
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

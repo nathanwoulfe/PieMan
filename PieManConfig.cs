@@ -4,13 +4,16 @@ using System.Xml.Linq;
 using Newtonsoft.Json;
 using Umbraco.Web.WebApi;
 using PieMan.Models;
+using Umbraco.Core;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 using System.Collections.Generic;
 
 namespace PieMan
 {
     public class Config
     {
+        private static IDataTypeService dts = ApplicationContext.Current.Services.DataTypeService;
 
         public static string ClientIdFromPropertyEditor
         {
@@ -42,7 +45,6 @@ namespace PieMan
 
         public static string GetSettingFromPropertyEditor(string alias)
         {
-            var dts = new Umbraco.Core.Services.DataTypeService();
             var datatype = dts.GetDataTypeDefinitionByPropertyEditorAlias("NW.PieMan").First();
             var settings = dts.GetPreValuesByDataTypeId(datatype.Id).ToList()[0];
 
@@ -61,7 +63,6 @@ namespace PieMan
 
         public static void SetTokenFromPropertyEditor(string value)
         {
-            var dts = new Umbraco.Core.Services.DataTypeService();
             var datatype = dts.GetDataTypeDefinitionByPropertyEditorAlias("NW.PieMan").First();
             var settings = dts.GetPreValuesByDataTypeId(datatype.Id).ToList();
 
