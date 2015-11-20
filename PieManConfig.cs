@@ -1,13 +1,13 @@
 ﻿using System.Linq;
-using System.Web.Hosting;
-using System.Xml.Linq;
+using System.Collections.Generic;
+
 using Newtonsoft.Json;
-using Umbraco.Web.WebApi;
+
 using PieMan.Models;
+
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using System.Collections.Generic;
 
 namespace PieMan
 {
@@ -76,7 +76,7 @@ namespace PieMan
             dict.Add("account", new PreValue(settings[1]));
             dict.Add("profile", new PreValue(settings[2]));
 
-            dts.SaveDataTypeAndPreValues(datatype, dict);   
+            dts.SaveDataTypeAndPreValues(datatype, dict);
         }
     }
 }
