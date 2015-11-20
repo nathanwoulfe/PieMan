@@ -14,7 +14,7 @@
     <key alias="year">jaar</key>
     <key alias="pageViews">Pagina beeld</key>
     <key alias="newVsReturning">Nieuw vs terugkerend</key>
-    <key alias="deviceCategory">apparaat categorie</key>
+    <key alias="deviceCategory">Apparaat categorie</key>
     <key alias="browserVersion">Browser versie</key>
     <key alias="clickToViewVersions">Klik om versies te bekijken</key>
     <key alias="clickToViewAllBrowsers">Klik om alle browers te bekijken</key>
