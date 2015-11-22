@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en_us" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+  <area alias="pieman">
+    <key alias="totalVisitorsInLast">Totaal aantal bezoekers</key>
+    <key alias="showAnalyticsForPrevious">Toon analytics voor vorige</key>
+    <key alias="showingAnalyticsForPrevious">Analytics tonen voor vorige</key>
+    <key alias="noData">Geen data beschikbaar voor de huidige pagina</key>
+    <key alias="noDataQuery">PieMan's query included in het pagina pad</key>
+    <key alias="totalPageviewsInLast">Totaal aantal views in de laatste</key>
+    <key alias="uniquePageviewsInLast">Unieke views in de laatste</key>
+    <key alias="averageTimeOnPage">Gemiddelde tijd op pagina</key>
+    <key alias="days">dagen</key>
+    <key alias="month">maand</key>
+    <key alias="year">jaar</key>
+    <key alias="pageViews">Pagina beeld</key>
+    <key alias="newVsReturning">Nieuw vs terugkerend</key>
+    <key alias="deviceCategory">Apparaat categorie</key>
+    <key alias="browserVersion">Browser versie</key>
+    <key alias="clickToViewVersions">Klik om versies te bekijken</key>
+    <key alias="clickToViewAllBrowsers">Klik om alle browers te bekijken</key>
+    <key alias="compareTo">-- Vergelijk met --</key>
+    <key alias="preceding">Vorige</key>
+    <key alias="samePeriodLast">Zelfde perdiode laatste</key>
+    <key alias="desktop">Desktop</key>
+    <key alias="mobile">Mobiel</key>
+    <key alias="tablet">Tablet</key>
+    <key alias="versions">Versies</key>
+    <key alias="new">Nieuw</key>
+    <key alias="total">Totaal</key>
+    <key alias="unique">Uniek</key>
+    <key alias="returning">Terugkerend</key>
+    <key alias="comparison">Vergelijking</key>
+
+    <key alias="infoMessage">Voordat je PieMan kan gebruiken moet je een profiel kiezen om statistieken te bekijken.</key>
+    <key alias="settings">Settings</key>
+    <key alias="settingsSaved">Settings opgeslagen</key>
+    <key alias="accountDetailsSaved">Account details opgeslagen</key>
+    <key alias="profileDetailsSaved">Profiel details opgeslagen</key>
+    <key alias="loginWithGoogleViaOAuth">Login met Google via oAuth</key>
+    <key alias="authorization">Autorisatie</key>
+    <key alias="authorize">Autorisatie</key>
+    <key alias="account">Account</key>
+    <key alias="profile">Prfiel</key>
+    <key alias="selectAccountMessage">Selecteer een account om analytics mee te bekijken</key>
+    <key alias="selectAccount">-- Selecteer account --</key>
+    <key alias="selectProfile">-- Selecteer profiel --</key>
+    <key alias="selectedProfile">Selecteer profiel</key>
+    <key alias="name">Naam</key>
+    <key alias="website">Website</key>
+    <key alias="id">Id</key>
+    <key alias="webPropertyId">Web property Id</key>
+
+    <key alias="cancel">Annuleren</key>
+
+    <key alias="noStateSpecified">Geen staat gespecificeerd</key>
+    <key alias="sorrySessionExpired">Sorry - Je sessie is waarschijnlijk verlopen</key>
+    <key alias="somethingWentWrong">Okay. Er is iets mis gegaan</key>
+    <key alias="informationSavedMessage"><![CDATA[Hi there %0%. We have saved your information to a config file, so Umbraco can pull stats from your Google Analytics account.<br /><br />Close this window and go grab a piping hot serve of stats - you'll need to reopen the settings panel and select an account and profile.]]></key>
+    <key alias="noAccess">Sorry je hebt geen toegang.</key>
+  </area>
+</language>

@@ -1,17 +1,15 @@
 ﻿using Newtonsoft.Json;
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
+
 using Umbraco.Core.Models;
-using Umbraco.Web.Editors;
-using Umbraco.Web.Models.ContentEditing;
 using Umbraco.Web.Mvc;
-using PieMan.Models;
 using Umbraco.Web.WebApi;
+
+using PieMan.Models;
 
 namespace PieMan.Controllers
 {
@@ -53,7 +51,7 @@ namespace PieMan.Controllers
                 dict.Add("profile", new PreValue(settings[2]));
             }
             else if (alias == "account")
-            {                
+            {
                 var o = JsonConvert.DeserializeObject<Account>(prevalue);
                 dict.Add("settings", new PreValue(settings[0]));
                 dict.Add("account", new PreValue(JsonConvert.SerializeObject(o)));
@@ -75,7 +73,7 @@ namespace PieMan.Controllers
                 prevalues["profile"].Value = JsonConvert.SerializeObject(o);
             }
 
-            Services.DataTypeService.SaveDataTypeAndPreValues(datatype, prevalues);   
+            Services.DataTypeService.SaveDataTypeAndPreValues(datatype, prevalues);
         }
     }
 }

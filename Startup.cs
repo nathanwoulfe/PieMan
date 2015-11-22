@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Configuration;
-using umbraco.BusinessLogic;
+﻿using System.Web.Configuration;
 using umbraco.cms.businesslogic.packager;
 using Umbraco.Core;
 
@@ -24,7 +17,7 @@ namespace PieMan
 
                 //Check to see if language keys for section needs to be added
                 Translations.AddTranslations();
-               
+
                 //As we only want this to run once - not every startup of Umbraco
                 var webConfig = WebConfigurationManager.OpenWebConfiguration("/");
                 webConfig.AppSettings.Settings.Add(AppSettingKey, true.ToString());

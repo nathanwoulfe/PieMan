@@ -1,14 +1,18 @@
-﻿using Newtonsoft.Json;
-using PieMan.Models;
-using Skybrud.Social.Google;
-using Skybrud.Social.Google.Analytics.Objects;
-using Skybrud.Social.Google.Analytics.Responses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+
+using Newtonsoft.Json;
+
+using PieMan.Models;
+
+using Skybrud.Social.Google;
+using Skybrud.Social.Google.Analytics.Objects;
+using Skybrud.Social.Google.Analytics.Responses;
+
 using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
 
@@ -62,7 +66,7 @@ namespace PieMan.Controllers
         /// <param name="Filter">The page path</param>
         /// <returns></returns>
         public HttpResponseMessage GetViewsDatapoints(string profile, string DateSpan, string Filter)
-        { 
+        {
             return this.Response((object)this.GetGoogleService().Analytics.GetData(profile, new AnalyticsDataOptions()
             {
                 StartDate = StartDate(DateSpan),
@@ -140,17 +144,17 @@ namespace PieMan.Controllers
                 string deviceCategory = analyticsDataRow.Cells[1].ToString();
                 string browserVersion = analyticsDataRow.Cells[2].ToString();
                 int views = Convert.ToInt32(analyticsDataRow.Cells[3].Value);
-                
+
                 Dictionary<string, int> dictionary3;
                 string index2;
-                
+
                 if (!deviceCategoryDict.ContainsKey(deviceCategory))
                 {
                     deviceCategoryDict.Add(deviceCategory, 0);
                 }
-                
+
                 (dictionary3 = deviceCategoryDict)[index2 = deviceCategory] = dictionary3[index2] + views;
-                
+
                 if (!browserDict.ContainsKey(browserName))
                 {
                     browserDict.Add(browserName, new Dictionary<string, int>());
