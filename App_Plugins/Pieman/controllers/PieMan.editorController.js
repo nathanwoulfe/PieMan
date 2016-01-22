@@ -140,8 +140,13 @@ angular.module("umbraco")
             setComparisonOptions();
 
             var len, i;
-            if ($scope.pagePath.length > 1 && $scope.pagePath.charAt($scope.pagePath.length - 1) === '/') {
-                $scope.pagePath = $scope.pagePath.slice(0, -1);
+            if ($scope.pagePath.length > 1) {
+                if ($scope.pagePath.charAt(0) !== '/') {
+                    $scope.pagePath = new URL($scope.pagePath).pathname;
+                }
+                if ($scope.pagePath.charAt($scope.pagePath.length - 1) === '/') {
+                    $scope.pagePath = $scope.pagePath.slice(0, -1);
+                }
             }
 
             $scope.filter = 'ga:pagePath==' + $scope.pagePath;
