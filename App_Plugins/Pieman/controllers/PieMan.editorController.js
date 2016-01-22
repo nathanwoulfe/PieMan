@@ -8,6 +8,8 @@ angular.module("umbraco")
         // need the current user locale to apply translations
         userService.getCurrentUser()
             .then(function (resp) {
+                $scope.userType = resp.userType;
+                
                 var locale = resp.locale;
                 if (locale.toLowerCase() === 'en-us') {
                     locale = 'en_us';
