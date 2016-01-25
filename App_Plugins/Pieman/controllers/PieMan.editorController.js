@@ -141,9 +141,10 @@ angular.module("umbraco")
 
             var len, i;
             if ($scope.pagePath.length > 1) {
-                if ($scope.pagePath.charAt(0) !== '/') {
-                    $scope.pagePath = new URL($scope.pagePath).pathname;
-                }
+                var a = document.createElement('a');
+                a.href = $scope.pagePath;
+                $scope.pagePath = a.pathname;
+                
                 if ($scope.pagePath.charAt($scope.pagePath.length - 1) === '/') {
                     $scope.pagePath = $scope.pagePath.slice(0, -1);
                 }
