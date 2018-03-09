@@ -23,7 +23,7 @@
                     },
                     legend: {
                         layout: 'vertical'
-                    }, 
+                    },
                     tooltip: {
                         formatter: function() {
                             var point = this.point,
@@ -107,7 +107,7 @@
                     true);
 
             }
-        }
+        };
     }
 
     angular.module('umbraco.directives').directive('PieManDrilldownPie', ['localizationService', directive]);

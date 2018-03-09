@@ -17,6 +17,9 @@
     <tags></tags>
     <dependencies>
       <dependency id="UmbracoCms.Core" version="0.0.0" />
+	  <dependency id="Skybrud.Social.Core" version="0.0.0" />
+	  <dependency id="Skybrud.Social.Google" version="0.0.0" />
+	  <dependency id="Skybrud.Essentials" version="0.0.0" />
     </dependencies>
   </metadata>
 </package>

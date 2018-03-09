@@ -33,7 +33,7 @@ angular.module('umbraco.resources')
                 dateFilter.startDate = $cookieStore.get('analyticsStartDate');
                 dateFilter.endDate = $cookieStore.get('analyticsEndDate');
 
-                if (dateFilter.startDate == null) {
+                if (dateFilter.startDate === null) {
                     dateFilter.startDate = moment().subtract('days', 29).format('YYYY-MM-DD');
                     dateFilter.endDate = moment().format('YYYY-MM-DD');
                     $cookieStore.put('analyticsStartDate', dateFilter.startDate);
@@ -41,11 +41,6 @@ angular.module('umbraco.resources')
                 }
 
                 return dateFilter;
-            },
-
-            gettranslations: function (culture) {
-                return $http.get('backoffice/pieman/translationsapi/gettranslations?culture=' + culture);
             }
-
         };
     });

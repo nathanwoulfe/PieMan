@@ -1,5 +1,5 @@
-﻿angular.module("umbraco").controller("PieMan.SettingsController",
-    function ($scope, PieManSettingsResource, notificationsService, localizationService) {
+﻿angular.module('umbraco').controller('PieMan.SettingsController',
+    function ($scope, pieManSettingsResource, notificationsService, localizationService) {
 
         $scope.settings = $scope.dialogData.settings;
         $scope.selectedaccount = $scope.dialogData.account;
@@ -13,10 +13,10 @@
             if ($scope.isAuthd) {
 
                 //Get all accounts via PieManSettingsResource - does WebAPI GET call
-                PieManSettingsResource.getaccounts().then(function (response) {
+                pieManSettingsResource.getaccounts().then(function (response) {
                     $scope.accounts = response.data;
 
-                    if ($scope.selectedaccount.Id != '') {
+                    if ($scope.selectedaccount.Id !== '') {
                         getProfiles($scope.selectedaccount.Id);
                     }
 
@@ -57,8 +57,8 @@
             }
         }
 
-        getProfiles = function (id) {
-            PieManSettingsResource.getprofiles(id).then(function (response) {
+        function getProfiles(id) {
+            pieManSettingsResource.getprofiles(id).then(function (response) {
                 $scope.profiles = response.data;
                 $scope.selectedprofile = _.where($scope.profiles, { Id: $scope.selectedprofile.Id })[0];
             });
@@ -67,22 +67,22 @@
         //Auth - Click
         $scope.auth = function () {
             //Open a dialog window to oAuth
-            window.open("/App_Plugins/PieMan/auth/OAuth.aspx", "oAuthAnalytics", "location=0,status=0,width=600,height=600");
+            window.open('/App_Plugins/PieMan/auth/OAuth.aspx', 'oAuthAnalytics', 'location=0,status=0,width=600,height=600');
         };
 
         //Save - click...
         $scope.save = function () {
 
-            if ($scope.dialogData.account.Id != '') {
-                PieManSettingsResource.saveprevalue($scope.dialogData.account, "account").then(function (response) {
+            if ($scope.dialogData.account.Id !== '') {
+                pieManSettingsResource.saveprevalue($scope.dialogData.account, 'account').then(function () {
                     localizationService.localize('pieman_accountDetailsSaved').then(function (val) {
                         notificationsService.success('Success', val);
                     });
                 });
             }
 
-            if ($scope.dialogData.profile.Id != '') {
-                PieManSettingsResource.saveprevalue($scope.dialogData.profile, "profile").then(function (response) {
+            if ($scope.dialogData.profile.Id !== '') {
+                pieManSettingsResource.saveprevalue($scope.dialogData.profile, 'profile').then(function () {
                     localizationService.localize('pieman_profileDetailsSaved').then(function (val) {
                         notificationsService.success('Success', val);
                     });

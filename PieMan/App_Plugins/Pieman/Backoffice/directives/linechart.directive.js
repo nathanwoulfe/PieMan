@@ -11,8 +11,7 @@
 				prevUnique: '=',
 				dates: '=',
 				prevDates: '=',
-				label: '@label',
-				translations: '='
+				label: '@label'
 			},
 			template: '<div></div>',
 			link: function (scope, element) {
@@ -74,8 +73,8 @@
 					},
 				});
 
-				var chartComparison = function (data, prevData, label, i) {
-					if (data !== undefined && prevData !== undefined) {
+				function chartComparison(data, prevData, label, i) {
+					if (data && prevData) {
 						if (data !== prevData && data.length > 0) {
 
 							if (chart.series[i] !== undefined) {
@@ -99,8 +98,8 @@
 				}
 
 				function valid(o) {
-					return o !== undefined && o.length;
-				}
+					return o && o.length;
+				};
 
 				scope.$watch('views', function (newValue) {
 					if (valid(newValue)) {
@@ -110,7 +109,6 @@
                             	chart.series[0].update({ name: t[0] }, false);
                             	chart.setTitle({ text: t[1] });
                             	window.dispatchEvent(new Event('resize'));
-                            	//chart.redraw();
                             });
 					}
 				}, true);
@@ -122,29 +120,30 @@
                             	chart.series[1].setData(newValue, true);
                             	chart.series[1].update({ name: t }, false);
                             	window.dispatchEvent(new Event('resize'));
-                            	//chart.redraw();
                             });
 					}
 				}, true);
 
 				scope.$watch('prevViews', function (newValue, oldValue) {
-					if (valid(newValue))
-						locale.localizeMany(['pieman_comparison', 'pieman_total'])
-                            .then(function (t) {
-                            	chartComparison(newValue, oldValue, t[0] + ' - ' + t[1], 2);
-                            });
+				    if (valid(newValue)) {
+				        locale.localizeMany(['pieman_comparison', 'pieman_total'])
+				            .then(function(t) {
+				                chartComparison(newValue, oldValue, t[0] + ' - ' + t[1], 2);
+				            });
+				    }
 				}, true);
 
 				scope.$watch('prevUnique', function (newValue, oldValue) {
-					if (valid(newValue))
-						locale.localizeMany('pieman_comparison', 'pieman_unique')
-                            .then(function (t) {
-                            	chartComparison(newValue, oldValue, t[0] + ' - ' + t[1], 3);
-                            });
+				    if (valid(newValue)) {
+				        locale.localizeMany('pieman_comparison', 'pieman_unique')
+				            .then(function(t) {
+				                chartComparison(newValue, oldValue, t[0] + ' - ' + t[1], 3);
+				            });
+				    }
 				}, true);
 			}
 		}
-	}
+	};
 
     angular.module('umbraco.directives').directive('PieManLine', ['localizationService', directive]);
 
