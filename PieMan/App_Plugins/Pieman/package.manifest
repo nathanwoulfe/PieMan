@@ -1,0 +1,53 @@
+{
+    propertyEditors: [
+        {
+			alias: "NW.PieMan",
+			name: "PieMan - Simple Analytics",
+			editor: {
+				view: "~/App_Plugins/PieMan/backoffice/partials/editor.html",
+				hideLabel: true
+			},
+			prevalues: {
+				fields: [
+					{
+						label: "Settings",
+						description: "These values are used to request analytics data from Google",
+						key: "settings",
+						view: "~/app_plugins/pieman/backoffice/partials/label.html"
+					},
+					{
+						label: "Account",
+						description: "The selected Google Analytics account",
+						key: "account",
+						view: "~/app_plugins/pieman/backoffice/partials/label.html"
+					},
+					{
+						label: "Profile",
+						description: "The selected account profile",
+						key: "profile",
+						view: "~/app_plugins/pieman/backoffice/partials/label.html"
+					}
+				]
+			},
+			defaultConfig: {
+				settings: "{\"client_id\": \"140468485447-dgk7rqv982gqk9ao9gbsck7epq0pu8ad.apps.googleusercontent.com\", \"client_secret\": \"90mdgzToSN9cc0H17Ic_9TsN\", \"refresh_token\": \"\"}",
+				account: "{\"Id\": \"\", \"Name\": \"\", \"Created\": \"\", \"Updated\": \"\"}",
+				profile: "{\"Id\": \"\", \"AccountId\": \"\", \"WebPropertyId\": \"\", \"InternalWebPropertyId\": \"\", \"Name\": \"\", \"Currency\": \"\", \"Timezone\": \"\", \"WebsiteUrl\": \"\", \"Type\": \"\", \"Created\": \"\", \"Updated\": \"\"}"	
+			}
+        }
+    ],
+    javascript: [
+        '~/App_Plugins/PieMan/backoffice/controllers/PieMan.editorController.js',
+        '~/App_Plugins/PieMan/backoffice/controllers/PieMan.settingsController.js',
+        '~/App_Plugins/PieMan/backoffice/directives/drilldownpiechart.directive.js',
+        '~/App_Plugins/PieMan/backoffice/directives/piechart.directive.js',
+        '~/App_Plugins/PieMan/backoffice/directives/linechart.directive.js',
+		'~/App_Plugins/PieMan/backoffice/resources/PieMan.statsResource.js',
+		'~/App_Plugins/PieMan/backoffice/resources/PieMan.settingsResource.js',
+		'~/App_Plugins/PieMan/backoffice/lib/highcharts.js'
+    ],
+	css: [
+		'~/App_Plugins/PieMan/backoffice/lib/highcharts.css',
+		'~/App_Plugins/PieMan/backoffice/css/pieman.min.css'
+	]
+}

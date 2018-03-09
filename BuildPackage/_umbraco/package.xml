@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<umbPackage>
+  <info>
+    <package>
+      <name>PieMan</name>
+      <version>2.0.0-alpha-000007</version>
+      <license url="http://www.opensource.org/licenses/mit-license.php">MIT license</license>
+      <url>https://github.com/nathanwoulfe/PieMan</url>
+      <requirements>
+        <major>7</major>
+        <minor>7</minor>
+        <patch>0</patch>
+      </requirements>
+    </package>
+    <author>
+      <name>Nathan Woulfe</name>
+      <website>https://github.com/nathanwoulfe</website>
+    </author>
+    <readme><![CDATA[Simple analytics for Umbraco.]]></readme>
+  </info>
+
+  <DocumentTypes />
+  <Templates />
+  <Stylesheets />
+  <Macros />
+  <DictionaryItems />
+  <Languages />
+  <DataTypes />
+
+  <Actions />
+
+  <control />
+
+  <files><file><guid>20dbe74b-416c-4a7c-a05d-e394e1738909.css</guid><orgPath>/App_Plugins/PieMan/backoffice/css</orgPath><orgName>pieman.min.css</orgName></file><file><guid>04dd3a7b-8351-4f7a-a8fc-9e8620e43618.js</guid><orgPath>/App_Plugins/PieMan/backoffice/js</orgPath><orgName>pieman.js</orgName></file><file><guid>752e63dd-8936-4c61-81ed-049bd04cc865.html</guid><orgPath>/App_Plugins/PieMan/backoffice/partials</orgPath><orgName>editor.html</orgName></file><file><guid>a34fb328-9011-4d0d-936a-4a7912766634.html</guid><orgPath>/App_Plugins/PieMan/backoffice/partials</orgPath><orgName>label.html</orgName></file><file><guid>38546d7f-bc7d-4ca3-a839-829b30b36d59.html</guid><orgPath>/App_Plugins/PieMan/backoffice/partials</orgPath><orgName>settings.html</orgName></file><file><guid>ca1ae58c-c8cd-4b18-9177-5f5bfce136ea.css</guid><orgPath>/App_Plugins/PieMan/css</orgPath><orgName>pieman.min.css</orgName></file><file><guid>fa336b4f-7113-4689-9365-d53a462c0576.js</guid><orgPath>/App_Plugins/PieMan/js</orgPath><orgName>pieman.js</orgName></file><file><guid>05431ce9-2394-4bd9-97eb-7052aca3fbe2.xml</guid><orgPath>/App_Plugins/PieMan/lang</orgPath><orgName>da.xml</orgName></file><file><guid>9cb69194-df89-4353-ac18-d4da90525c54.xml</guid><orgPath>/App_Plugins/PieMan/lang</orgPath><orgName>en.xml</orgName></file><file><guid>f1c805e8-1550-4501-95d1-6254987aadd9.xml</guid><orgPath>/App_Plugins/PieMan/lang</orgPath><orgName>en_us.xml</orgName></file><file><guid>a8b8564e-f8d6-4267-8cb9-23c8ea1372e3.xml</guid><orgPath>/App_Plugins/PieMan/lang</orgPath><orgName>nl.xml</orgName></file><file><guid>4b230c19-ae3d-49e9-b5e3-5e743ec8e141.js</guid><orgPath>/App_Plugins/PieMan/lib</orgPath><orgName>highcharts.js</orgName></file><file><guid>9c839146-4ca9-4c58-97d9-795ac8b7452b.html</guid><orgPath>/App_Plugins/PieMan/partials</orgPath><orgName>editor.html</orgName></file><file><guid>4b4d4af4-7bdb-4178-b401-2c41c2b1289e.html</guid><orgPath>/App_Plugins/PieMan/partials</orgPath><orgName>label.html</orgName></file><file><guid>943424f8-809d-4681-9a1a-a3058608dce1.html</guid><orgPath>/App_Plugins/PieMan/partials</orgPath><orgName>settings.html</orgName></file><file><guid>bcb92e76-9bb0-4e50-8459-346aafd3a283.dll</guid><orgPath>/bin</orgPath><orgName>PieMan.dll</orgName></file><file><guid>eb9267ca-de6b-4c5e-8c61-bf94691d0eee.dll</guid><orgPath>/bin</orgPath><orgName>SkyBrud.Essentials.dll</orgName></file><file><guid>65f64de6-74d8-4d3a-9a91-2e13ceaef768.dll</guid><orgPath>/bin</orgPath><orgName>SkyBrud.Social.Core.dll</orgName></file><file><guid>34b3bb38-861a-4f2a-ac4f-3a4dbdc3c61a.dll</guid><orgPath>/bin</orgPath><orgName>SkyBrud.Social.Google.dll</orgName></file></files>
+
+</umbPackage>

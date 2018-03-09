@@ -1,0 +1,44 @@
+{
+  "name": "pieman",
+  "version": "2.0.0",
+  "description": "Simple analytics for Umbraco",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "^1.0.2"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "load-grunt-tasks": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-template": "*",
+    "grunt-nuget": "*",
+    "grunt-mkdir": "*",
+    "grunt-banner": "*",
+    "grunt-umbraco-package": "*",
+    "time-grunt": "*",
+    "grunt-karma": "*",
+    "karma": "*",
+    "karma-jasmine": "*",
+    "karma-phantomjs-launcher": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "umbraco",
+    "analytics"
+  ],
+  "license": "MIT",
+  "licenseUrl": "https://opensource.org/licenses/MIT",
+  "author": {
+    "name": "Nathan Woulfe",
+    "email": "nathan@nathanw.com.au",
+    "url": "http://www.nathanw.com.au"
+  }
+}

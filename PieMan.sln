@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieMan", "PieMan\PieMan.csproj", "{3935017B-DEEF-4424-9746-CD01AC76868B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieMan.Site", "PieMan.Site\PieMan.Site.csproj", "{ED4554DD-E4CF-44B2-BC68-E75A036BD615}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CEE0293F-DFC8-48BE-A8B8-2315A0B44595}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3935017B-DEEF-4424-9746-CD01AC76868B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3935017B-DEEF-4424-9746-CD01AC76868B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3935017B-DEEF-4424-9746-CD01AC76868B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3935017B-DEEF-4424-9746-CD01AC76868B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED4554DD-E4CF-44B2-BC68-E75A036BD615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED4554DD-E4CF-44B2-BC68-E75A036BD615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED4554DD-E4CF-44B2-BC68-E75A036BD615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED4554DD-E4CF-44B2-BC68-E75A036BD615}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4718B500-E142-443F-AC6F-5CBBB2BBDF30}
+	EndGlobalSection
+EndGlobal

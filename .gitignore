@@ -1,6 +1,15 @@
 obj/
 packages/
-*.config
-*.sln
 *.suo
 *.user
+/.vs
+/BuildPackage/artifacts
+/dist/App_Plugins/PieMan
+/PieMan/.sass-cache
+/PieMan/bin
+/PieMan/node_modules
+/PieMan.Site/App_Data/Logs
+/PieMan.Site/App_Data/Models
+/PieMan.Site/App_Data/NuGetBackup
+/PieMan.Site/App_Data/TEMP
+/PieMan.Site/bin

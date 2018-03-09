@@ -1,0 +1,60 @@
+﻿<div ng-controller="PieMan.SettingsController" class="pieman-settings">
+    <div class="umb-pane form-horizontal">
+
+        <header>
+            <h3>
+                <span class="icon-pie-chart"></span>
+                PieMan
+            </h3>
+            <h4><localize key="pieman_settings">Settings</localize></h4>
+        </header>
+        <section>
+            <div ng-hide="isAuthdssssssssssss">
+                <umb-control-group label="@pieman_authorization" description="@pieman_loginWithGoogleViaOAuth">
+                    <button class="btn btn-success" ng-click="auth()"><span class="icon-lock"></span> <localize key="pieman_authorize">Authorize</localize></button>
+                </umb-control-group>
+            </div>
+
+            <div class="umb-property" ng-show="isAuthd">
+                <div class="control-group umb-control-group">
+                    <div class="umb-el-wrap">
+                        <div class="controls controls-row">
+                            <label class="control-label" for="">
+                                <localize key="pieman_account">Account</localize>
+                            </label>
+                            <select name="account" ng-model="selectedaccount" ng-change="accountSelected(selectedaccount)" ng-options="account.Name for account in accounts">
+                                <option value=""><localize key="pieman_selectAccount">-- Select account --</localize></option>
+                            </select>
+                        </div>
+                        <div class="controls controls-row" ng-hide="dialogData.account.Id === ''">
+                            <label class="control-label" for="">
+                                <localize key="pieman_profile">Profile</localize>
+                            </label>
+                            <select name="profile" ng-show="selectedaccount" ng-model="selectedprofile" ng-change="profileSelected(selectedprofile)" ng-options="profile.Name for profile in profiles">
+                                <option value=""><localize key="pieman_selectProfile">-- Select profile --</localize></option>
+                            </select>
+                        </div>
+                        <hr />
+                        <div ng-show="selectedprofile">
+                            <h4><localize key="pieman_selectedProfile">Selected profile<</localize></h4>
+                            <h5><localize key="pieman_name">NAME</localize>: {{ selectedprofile.Name }}</h5>
+                            <h5><localize key="pieman_website">WEBSITE</localize>: {{ selectedprofile.WebsiteUrl }}</h5>
+                            <h5><localize key="pieman_id">ID</localize>: {{ selectedprofile.Id }}</h5>
+                            <h5><localize key="pieman_webPropertyId">WEB PROPERTY ID</localize>: {{ selectedprofile.WebPropertyId }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btns">
+                <button ng-disabled="!selectedprofile" ng-click="save()" data-hotkey="ctrl+s" class="btn btn-success">
+                    <localize key="buttons_save">Save</localize>
+                </button>
+                <button ng-click="close()" data-hotkey="ctrl+x" class="btn btn-default">
+                    <localize key="pieman_cancel">Cancel</localize>
+                </button>
+            </div>
+
+        </section>
+    </div>
+</div>

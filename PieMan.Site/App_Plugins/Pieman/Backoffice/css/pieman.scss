@@ -1,0 +1,283 @@
+﻿@import "_variables";
+@import "highcharts";
+
+.pieman-editor {
+    position: relative;
+
+    .btn-settings {
+        font-size: 30px;
+        cursor: pointer;
+        margin-left: 15px;
+        color: #ccc;
+        transition: color ease-in-out .2s;
+
+        &:hover {
+            color: #aaa;
+        }
+    }
+
+    .stat-banner {
+        list-style-type: none;
+        margin: 0 auto 30px;
+        padding: 0;
+        display: flex;
+        text-transform: uppercase;
+
+        .stat {
+            flex-basis: 25%;
+            flex: 1;
+            flex-wrap: wrap;
+            flex-direction: column;
+            background: #f3f3f5;
+            border-radius: 3px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            margin: 0 15px;
+            line-height: 1.2;
+
+            &.no-cap span {
+                text-transform: none;
+            }
+        }
+
+        span {
+            font-weight: bold;
+            display: block;
+            font-size: 3rem;
+            margin-bottom: 5px;
+            color: $umbPurple;
+        }
+    }
+
+    .line-wrapper {
+        position: relative;
+
+        select {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+
+    .line {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .pie {
+        flex: 1;
+        max-width: 33%;
+        max-height: 500px;
+    }
+
+    .pie-wrapper {
+        display: flex;
+    }
+
+    .pieman-wrapper {
+        width: 100%;
+        position: relative;
+    }
+
+    .controls {
+        text-align: center;
+        margin-left: 0;
+
+        span {
+            display: flex;
+            align-items: center;
+            background: #f8f8f8;
+            padding: 10px 30px 10px 15px;
+        }
+
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto 15px;
+            padding: 15px;
+        }
+
+        input {
+            background: transparent;
+            font-size: 24px;
+            border: none;
+            width: 40px;
+            text-align: center;
+            text-decoration: underline;
+            height: auto;
+            padding: 0;
+
+            &:hover {
+                color: #1d1d1d;
+            }
+        }
+
+        a {
+            background: $umbPurple;
+            color: #fff;
+            padding: 8px 8px 8px 10px;
+            width: 28px;
+            height: 30px;
+            font-size: 30px;
+            text-decoration: none;
+            border-radius: 50%;
+            margin-left: -25px;
+            line-height: 30px;
+            transition: color ease-in-out .2s;
+
+            &:hover {
+                background: $umbPurple;
+                color: #aaa;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            &.loading {
+                -webkit-animation: bg-pulse 1.5s infinite;
+                -moz-animation: bg-pulse 1.5s infinite;
+                -o-animation: bg-pulse 1.5s infinite;
+                animation: bg-pulse 1.5s infinite;
+            }
+
+            &.icon-delete {
+                padding-left: 8px;
+                width: 30px;
+            }
+        }
+    }
+
+    .btn {
+        opacity: 1;
+        background: #fff;
+        border: none;
+        padding: 5px 0;
+        transition: background .2s ease-in-out;
+
+        &:hover {
+            background: #ccc;
+        }
+
+        .disabled {
+            opacity: 0;
+            transition: opacity ease-in-out .2s;
+        }
+    }
+
+    .highcharts-tooltip {
+
+        hr {
+            margin: 5px 0;
+            border: 0;
+            border-top: 1px solid #aaa;
+
+            ~ span {
+                color: #aaa;
+            }
+        }
+    }
+}
+
+.pieman-error {
+
+    text-align:center;
+
+    .error-block {
+        background:$danger;
+        display:inline-block;
+        padding:5px 10px;
+
+        p {
+            color:#fff;
+
+            &:last-of-type {
+                margin-bottom:0;
+            }
+        }
+    }
+}
+
+/*** settings ***/
+
+.pieman-settings {
+
+    .umb-pane {
+        margin: 0;
+    }
+
+    header {
+        background: #1d1d1d;
+        padding: 15px 15px 7px;
+        margin: 0 0 15px 0;
+        color: #d9d9d9;
+
+        h3 {
+            font-size: 38.5px;
+        }
+
+
+        h3 span {
+            color: #df7f48;
+        }
+
+        h4 {
+            text-transform: uppercase;
+            font-size: 18px;
+        }
+    }
+
+    section {
+        padding: 15px;
+
+        .btns {
+            text-align: right;
+            display: block;
+
+            button {
+                display: inline-block;
+                margin-left: 0;
+            }
+        }
+
+        h5 {
+            margin: 5px 0;
+            text-transform: none;
+
+            localize {
+                text-transform:uppercase;
+            }
+        }
+    }
+}
+
+
+@-webkit-keyframes bg-pulse {
+    0% {
+        background: $umbPurple;
+    }
+
+    50% {
+        background: $umbGreen;
+    }
+
+    100% {
+        background: $umbPurple;
+    }
+}
+
+@keyframes bg-pulse {
+    0% {
+        background: $umbPurple;
+    }
+
+    50% {
+        background: $umbGreen;
+    }
+
+    100% {
+        background: $umbPurple;
+    }
+}

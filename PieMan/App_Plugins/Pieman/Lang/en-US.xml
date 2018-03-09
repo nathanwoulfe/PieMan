@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en_us" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+  <creator>
+    <name>The Umbraco community</name>
+    <link>http://our.umbraco.org/documentation/Extending-Umbraco/Language-Files</link>
+  </creator> 
+  <area alias="pieman">
+    <key alias="totalVisitorsInLast">Total visits in last</key>
+    <key alias="showAnalyticsForPrevious">Show analytics for previous</key>
+    <key alias="showingAnalyticsForPrevious">Showing analytics for previous</key>
+    <key alias="noData">No data available for the current page</key>
+    <key alias="noDataQuery">PieMan's query included the page path</key>
+    <key alias="totalPageviewsInLast">Total pageviews in last</key>
+    <key alias="uniquePageviewsInLast">Unique pageviews in last</key>
+    <key alias="averageTimeOnPage">Average time on page</key>
+    <key alias="days">days</key>
+    <key alias="month">month</key>
+    <key alias="year">year</key>
+    <key alias="pageViews">Page views</key>
+    <key alias="newVsReturning">New vs returning</key>
+    <key alias="deviceCategory">Device category</key>
+    <key alias="browserVersion">Browser version</key>
+    <key alias="clickToViewVersions">Click to view versions</key>
+    <key alias="clickToViewAllBrowsers">Click to view all browsers</key>
+    <key alias="compareTo">-- Compare to --</key>
+    <key alias="preceding">Preceding</key>
+    <key alias="samePeriodLast">Same period last</key>
+    <key alias="desktop">Desktop</key>
+    <key alias="mobile">Mobile</key>
+    <key alias="tablet">Tablet</key>
+    <key alias="versions">Versions</key>
+    <key alias="new">New</key>
+    <key alias="total">Total</key>
+    <key alias="unique">Unique</key>
+    <key alias="returning">Returning</key>
+    <key alias="comparison">Comparison</key>
+
+    <key alias="infoMessage">Before you can use PieMan, you need to choose a profile you wish to use to view statistics.</key>
+    <key alias="settings">Settings</key>
+    <key alias="settingsSaved">Settings saved</key>
+    <key alias="accountDetailsSaved">Account details saved</key>
+    <key alias="profileDetailsSaved">Profile details saved</key>
+    <key alias="loginWithGoogleViaOAuth">Log with Google via oAuth</key>
+    <key alias="authorization">Authorization</key>
+    <key alias="authorize">Authorize</key>
+    <key alias="account">Account</key>
+    <key alias="profile">Profile</key>
+    <key alias="selectAccountMessage">Select account from which to view analytics</key>
+    <key alias="selectAccount">-- Select account --</key>
+    <key alias="selectProfile">-- Select profile --</key>
+    <key alias="selectedProfile">Selected profile</key>
+    <key alias="name">Name</key>
+    <key alias="website">Website</key>
+    <key alias="id">Id</key>
+    <key alias="webPropertyId">Web property Id</key>
+
+    <key alias="cancel">Cancel</key>
+
+    <key alias="noStateSpecified">No state specified</key>
+    <key alias="sorrySessionExpired">Sorry - your session has most likely expired</key>
+    <key alias="somethingWentWrong">Okay. Something went wrong</key>
+    <key alias="informationSavedMessage"><![CDATA[Hi there %0%. We have saved your information to a config file, so Umbraco can pull stats from your Google Analytics account.<br /><br />Close this window and go grab a piping hot serve of stats - you'll need to reopen the settings panel and select an account and profile.]]></key>
+    <key alias="noAccess">Sorry you do not have access.</key>
+  </area>
+</language>
