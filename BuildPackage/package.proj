@@ -115,9 +115,9 @@
 	<Target Name="PrepareFiles" DependsOnTargets="Compile">
 		<ItemGroup>
 			<BinFiles Include="$(CoreProjectDir)\Bin\$(BuildConfig)\PieMan.dll" />
-			<BinFiles Include="$(CoreProjectDir)\Bin\SkyBrud.Social.Core.dll" />
-			<BinFiles Include="$(CoreProjectDir)\Bin\SkyBrud.Social.Google.dll" />
-			<BinFiles Include="$(CoreProjectDir)\Bin\SkyBrud.Essentials.dll" />
+			<BinFiles Include="$(CoreProjectDir)\Bin\$(BuildConfig)\SkyBrud.Social.Core.dll" />
+			<BinFiles Include="$(CoreProjectDir)\Bin\$(BuildConfig)\SkyBrud.Social.Google.dll" />
+			<BinFiles Include="$(CoreProjectDir)\Bin\$(BuildConfig)\SkyBrud.Essentials.dll" />
 			<PdbFiles Include="$(CoreProjectDir)\Bin\$(BuildConfig)\PieMan.pdb" />
 			<SrcFiles Include="$(CoreProjectDir)\**\*.cs" Exclude="$(CoreProjectDir)\obj\**"/>
 			<PackageFile Include="$(MSBuildProjectDirectory)\package.xml" />
@@ -197,7 +197,7 @@
           OutputDirectory="$(ArtifactsDir)"
           Symbols="true" />
 
-    <!-- <RemoveDir Directories="$(BuildUmbDir)" Condition="Exists('$(BuildUmbDir)')" /> -->
+    <RemoveDir Directories="$(BuildUmbDir)" Condition="Exists('$(BuildUmbDir)')" />
     <RemoveDir Directories="$(BuildNuGetDir)" Condition="Exists('$(BuildNuGetDir)')" />
 
   </Target>
