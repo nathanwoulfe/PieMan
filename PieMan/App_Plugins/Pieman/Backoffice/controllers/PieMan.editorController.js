@@ -2,16 +2,16 @@ angular.module('umbraco')
     .controller('PieMan.EditorController', function ($scope, localizationService, $http, pieManResource, $filter, editorState, userService, contentResource, pieManSettingsResource, dialogService) {
 
         // wire up the settings dialog
-        $scope.settingsDialog = function () {
+        $scope.settingsDialog = function() {
             dialogService.open({
                 template: '../App_Plugins/PieMan/backoffice/partials/settings.html',
                 show: true,
                 dialogData: $scope.config,
-                callback: function () {
-                    setTimeout(function () { init(); }, 1);
+                callback: function() {
+                    setTimeout(function() { init(); }, 1);
                 }
             });
-        }
+        };
 
         // back to the start
         function reset() {
@@ -27,7 +27,7 @@ angular.module('umbraco')
             $scope.prevDates = [];
             $scope.prevUnique = [];
             $scope.prevViews = [];
-        };
+        }
 
 
         // set the comparison, if any
@@ -48,9 +48,9 @@ angular.module('umbraco')
                     ];
                     $scope.comparisonType = 0;
                 });
-        };
+        }
 
-        $scope.getComparisonData = function () {
+        $scope.getComparisonData = function() {
 
             var startDate = new Date(),
                 endDate = new Date();
@@ -69,13 +69,13 @@ angular.module('umbraco')
             if ($scope.comparisonType > 0) {
 
                 pieManResource.getComparisonChartData($scope.config.profile.Id,
-                    startDate.toUTCString(),
-                    endDate.toUTCString(),
-                    $scope.filter)
-                    .then(function (resp) {
+                        startDate.toUTCString(),
+                        endDate.toUTCString(),
+                        $scope.filter)
+                    .then(function(resp) {
                         var len = resp.data.Body.Rows.length, tempV = [], tempU = [], tempD = [];
 
-                        for (let i = 0; i < len; i += 1) {
+                        for (var i = 0; i < len; i += 1) {
 
                             var o = resp.data.Body.Rows[i].Cells,
                                 views = parseInt(o[1].Value),
@@ -97,7 +97,7 @@ angular.module('umbraco')
                 $scope.prevViews = [];
                 $scope.prevDates = [];
             }
-        }
+        };
 
         // the heavy lifting happens in here
         function getAnalytics() {
@@ -198,11 +198,12 @@ angular.module('umbraco')
                         $scope.browserType = [];
 
                         ['desktop', 'mobile', 'tablet'].forEach(function (type) {
-                            if (bcd.hasOwnProperty(type))
+                            if (bcd.hasOwnProperty(type)) {
                                 localizationService.localize('pieman_' + type)
-                                    .then(function (val) {
+                                    .then(function(val) {
                                         $scope.deviceCategory.push([val, bcd[type]]);
                                     });
+                            }
                         });
 
                         for (i = 0; i < l; i++) {
@@ -233,7 +234,7 @@ angular.module('umbraco')
                     }
                     checkLoadingStatus();
                 });
-        };
+        }
 
         function checkLoadingStatus() {
             if ($scope.responseStatus.indexOf(0) === -1) {
@@ -247,16 +248,15 @@ angular.module('umbraco')
                     $scope.showError = true;
                 }
             }
-        };
+        }
 
-        $scope.toggleState = function () {
+        $scope.toggleState = function() {
             if ($scope.showCharts) {
                 reset();
-            }
-            else {
+            } else {
                 getAnalytics();
             }
-        }
+        };
 
         // get the account, profile and settings info from the property editor prevalues
         $scope.config = {};
@@ -268,25 +268,31 @@ angular.module('umbraco')
 
                 reset();
             });
-        };
+        }
 
         init();
     })
 
     .filter('secondsToString', function () {
-        return function (seconds) {
+        return function(seconds) {
             var days = Math.floor(seconds / 86400),
                 hours = Math.floor((seconds % 86400) / 3600),
                 minutes = Math.floor(((seconds % 86400) % 3600) / 60),
                 timeString = '';
 
-            if (days > 0) { timeString += days + 'd '; }
-            if (hours > 0) { timeString += hours + 'h '; }
-            if (minutes > 0) { timeString += minutes + 'm '; }
+            if (days > 0) {
+                timeString += days + 'd ';
+            }
+            if (hours > 0) {
+                timeString += hours + 'h ';
+            }
+            if (minutes > 0) {
+                timeString += minutes + 'm ';
+            }
 
             timeString += seconds + 's';
 
             return timeString;
-        }
+        };
     });
 

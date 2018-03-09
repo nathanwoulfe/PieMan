@@ -1,4 +1,4 @@
-﻿(function() {
+﻿(function () {
     'use strict';
 
     function directive(locale) {
@@ -12,7 +12,7 @@
                 drillOut: '=',
             },
             template: '<div></div>',
-            link: function(scope, element) {
+            link: function (scope, element) {
                 var chart = new Highcharts.Chart({
                     chart: {
                         renderTo: element[0],
@@ -25,7 +25,7 @@
                         layout: 'vertical'
                     },
                     tooltip: {
-                        formatter: function() {
+                        formatter: function () {
                             var point = this.point,
                                 s = '<span>' +
                                     this.point.name +
@@ -35,12 +35,12 @@
 
                             if (point.drilldown) {
                                 locale.localize(scope.drillIn)
-                                    .then(function(t) {
+                                    .then(function (t) {
                                         s += t;
                                     });
                             } else {
                                 locale.localize(scope.drillOut)
-                                    .then(function(t) {
+                                    .then(function (t) {
                                         s += t;
                                     });
                             }
@@ -53,20 +53,19 @@
                     },
                     plotOptions: {
                         pie: {
-                            center: ['50%', '50%'],
                             showInLegend: true,
                             dataLabels: {
                                 enabled: false
                             },
                             point: {
                                 events: {
-                                    click: function() {
+                                    click: function () {
                                         var drilldown = this.drilldown;
                                         if (drilldown) { // drill down
                                             setChart(drilldown.name, drilldown.data, true);
                                         } else { // restore
                                             locale.localize(scope.label)
-                                                .then(function(t) {
+                                                .then(function (t) {
                                                     setChart(t, scope.data, false);
                                                 });
                                         }
@@ -95,13 +94,12 @@
                 }
 
                 scope.$watch('data',
-                    function(newValue) {
+                    function (newValue) {
                         locale.localize(scope.label)
-                            .then(function(t) {
+                            .then(function (t) {
                                 chart.series[0].setData(newValue, true);
                                 chart.setTitle({ text: t });
                                 window.dispatchEvent(new Event('resize'));
-                                //chart.redraw();
                             });
                     },
                     true);

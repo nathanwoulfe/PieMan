@@ -39,37 +39,39 @@
                     plotOptions: {
                         pie: {
                             showInLegend: true,
-                            center: ['50%', '50%'],
                             dataLabels: {
                                 enabled: false
                             }
                         }
                     },
-                    series: [{
-                        data: scope.data
-                    }]
+                    series: [
+                        {
+                            data: scope.data
+                        }
+                    ]
                 });
 
-                scope.$watch('data', function (newVal) {
-                    if (newVal) {
-                        var data = JSON.parse(JSON.stringify(newVal));
-                        // to keep the pie charts aligned, all must have the same number of segments
-                        data.push(['3', 0]);
-                        data.push(['4', 0]);
-                        data.push(['5', 0]);
-                        
-                        locale.localize(scope.label)
-                            .then(function (t) {
-                                chart.series[0].setData(data, true);
-                                chart.setTitle({ text: t });
-                                window.dispatchEvent(new Event('resize'));
-                                //chart.redraw();
-                            });
-                    }
-                }, true);
+                scope.$watch('data',
+                    function (newVal) {
+                        if (newVal) {
+                            var data = JSON.parse(JSON.stringify(newVal));
+                            // to keep the pie charts aligned, all must have the same number of segments
+                            data.push(['3', 0]);
+                            data.push(['4', 0]);
+                            data.push(['5', 0]);
+
+                            locale.localize(scope.label)
+                                .then(function (t) {
+                                    chart.series[0].setData(data, true);
+                                    chart.setTitle({ text: t });
+                                    window.dispatchEvent(new Event('resize'));
+                                });
+                        }
+                    },
+                    true);
 
             }
-        }
+        };
     };
 
     angular.module('umbraco.directives').directive('PieManPie', ['localizationService', directive]);
