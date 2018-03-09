@@ -308,9 +308,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetPath)" "$(ProjectDir)..\PieMan.Site\bin" /Y /I /D
-xcopy "$(ProjectDir)..\PieMan.Site\bin\Skybrud.Social.Core.dll" "$$(ProjectDir)..\PieMan.Site\bin" /Y /I /D
-xcopy "$(ProjectDir)..\PieMan.Site\bin\Skybrud.Social.Google.dll" "$(ProjectDir)..\PieMan.Site\bin" /Y /I /D
-xcopy "$(ProjectDir)..\PieMan.Site\bin\Skybrud.Essentials.dll" "$(ProjectDir)..\PieMan.Site\bin" /Y /I /D
+xcopy "$(ProjectDir)bin\Skybrud.Social.Core.dll" "$(ProjectDir)..\PieMan.Site\bin" /Y /I /D
+xcopy "$(ProjectDir)bin\Skybrud.Social.Google.dll" "$(ProjectDir)..\PieMan.Site\bin" /Y /I /D
+xcopy "$(ProjectDir)bin\Skybrud.Essentials.dll" "$(ProjectDir)..\PieMan.Site\bin" /Y /I /D
 xcopy "$(ProjectDir)App_Plugins\*.*" "$(ProjectDir)..\PieMan.Site\App_Plugins" /A /K /Y /E</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
