@@ -72,7 +72,7 @@
 
             }
         };
-    };
+    }
 
     angular.module('umbraco.directives').directive('PieManPie', ['localizationService', directive]);
 

@@ -1,11 +1,11 @@
 # version format
-version: 2.0.2.{build}
+version: 2.0.3.{build}
 
 image: Visual Studio 2017
 
 cache:
   - packages -> **\packages.config
-  - c:\projects\umbracoworkflow\PieMan\node_modules -> **\packages.json
+  - c:\projects\PieMan\PieMan\node_modules -> **\packages.json
   
 # UMBRACO_PACKAGE_PRERELEASE_SUFFIX will only be used for Release builds
 # example UMBRACO_PACKAGE_PRERELEASE_SUFFIX=beta
@@ -42,8 +42,8 @@ deploy:
         appveyor_repo_tag: true      
     
   - provider: GitHub
-    tag: v2.0.2
-    release: Release 2.0.2
+    tag: v2.0.3
+    release: Release 2.0.3
     description: 'Refactor the whole shebang.'
     force_update: true
     auth_token:

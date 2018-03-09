@@ -44,7 +44,7 @@
                 src: [
                   '<%= basePath %>/backoffice/controllers/*.js',
                   '<%= basePath %>/backoffice/directives/*.js',
-                  '<%= basePath %>/backoffice/backoffice/resources/*.js'
+                  '<%= basePath %>/backoffice/resources/*.js'
                 ],
                 dest: '<%= dest %>/<%= basePath %>/backoffice/js/pieman.js',
                 nonull: true,
@@ -123,47 +123,47 @@
         copy: {
             config: {
                 src: '<%= basePath %>/dist.manifest', // dist.manifest only references the compiled, prod-ready css/js
-                dest: '../pieman.site/<%= basePath %>/package.manifest',
+                dest: '<%= dest %>/<%= basePath %>/package.manifest',
             },
 
             css: {
                 src: '<%= basePath %>/backoffice/css/pieman.css',
-                dest: '../pieman.site/<%= basePath %>/backoffice/css/pieman.min.css', // yes, it's not minified, but the build task will overwrite it later
+                dest: '<%= dest %>/<%= basePath %>/backoffice/css/pieman.min.css', // yes, it's not minified, but the build task will overwrite it later
             },
 
             auth: {
                 expand: true,
                 cwd: '<%= basePath %>/',
                 src: 'auth/**',
-                dest: '../pieman.site/<%= basePath %>/auth/',
+                dest: '<%= dest %>/<%= basePath %>/auth/'
             },
 
             js: {
                 expand: true,
                 cwd: '<%= basePath %>/',
                 src: '**/*.js',
-                dest: '../pieman.site/<%= basePath %>/',
+                dest: '<%= dest %>/<%= basePath %>/'
             },
 
             lang: {
                 expand: true,
                 cwd: '<%= basePath %>/Lang/',
                 src: '**',
-                dest: '../pieman.site/<%= basePath %>/Lang/',
+                dest: '<%= dest %>/<%= basePath %>/Lang/'
             },
 
             lib: {
                 expand: true,
-                cwd: '<%= basePath %>/lib/',
+                cwd: '<%= basePath %>/backoffice/lib/',
                 src: '**',
-                dest: '../pieman.site/<%= basePath %>/lib/'
+                dest: '<%= dest %>/<%= basePath %>/backoffice/lib/'
             },
 
             partials: {
                 expand: true,
                 cwd: '<%= basePath %>/backoffice/partials/',
                 src: '**',
-                dest: '../pieman.site/<%= basePath %>/backoffice/partials/'
+                dest: '<%= dest %>/<%= basePath %>/backoffice/partials/'
             },
 
             nuget: {
