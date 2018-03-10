@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function editor($scope, $timeout, assetsService, notificationsService, localizationService, pieManResource, $filter, editorState, pieManSettingsResource) {
+    function editor($scope, $q, $timeout, assetsService, notificationsService, localizationService, pieManResource, $filter, editorState, pieManSettingsResource) {
 
         // wire up the settings dialog
         $scope.openSettings = function () {
@@ -156,133 +156,122 @@
 
             $scope.filter = 'ga:pagePath==' + $scope.pagePath;
 
-            pieManResource.getViewsDatapoints($scope.config.profile.Id, $scope.dateSpan, $scope.filter)
-                .then(function (resp) {
+            /**
+             * Await all analytics requests
+             */
+            $q.all([
+                pieManResource.getViewsDatapoints($scope.config.profile.Id, $scope.dateSpan, $scope.filter),
+                pieManResource.getViewsChartData($scope.config.profile.Id, $scope.dateSpan, $scope.filter),
+                pieManResource.getBrowserDatapoints($scope.config.profile.Id, $scope.dateSpan, $scope.filter)
+            ])
+                .then(function (d) {
+                    setViewsDatapoints(d[0]);
+                    setViewsChartData(d[1]);
+                    setBrowserDatapoints(d[2]);
 
-                    $scope.responseStatus[0] = 1;
-
-                    if (resp.data.Body.Rows !== undefined && resp.data.Body.Rows.length) {
-                        var d = resp.data.Body.Rows[0].Cells;
-                        $scope.totalPageViews = d[0].Value;
-                        $scope.avgTimeOnPage = parseInt(d[1].Value, 10).toFixed(0);
-                        $scope.totalUniqueViews = d[2].Value;
-                        $scope.totalVisitors = d[4].Value;
-
-                        var nv = d[3].Value;
-
-                        localizationService.localizeMany(['pieman_new', 'pieman_returning'])
-                            .then(function (t) {
-                                $scope.newVisits = [
-                                    [t[0], parseFloat(nv)],
-                                    [t[1], 100 - nv]
-                                ];
-
-                                $scope.loadingStatus[0] = 1;
-                            });
-                    } else {
-                        $scope.noData[0] = 1;
-                    }
-
-                    checkLoadingStatus();
-                });
-
-            pieManResource.getViewsChartData($scope.config.profile.Id, $scope.dateSpan, $scope.filter)
-                .then(function (resp) {
-
-                    $scope.responseStatus[1] = 1;
-
-                    if (resp.data.Body.Rows !== undefined && resp.data.Body.Rows.length) {
-
-                        $scope.dates = [];
-                        $scope.views = [];
-                        $scope.unique = [];
-                        len = resp.data.Body.Rows.length;
-
-                        for (i = 0; i < len; i++) {
-
-                            var o = resp.data.Body.Rows[i].Cells,
-                                views = parseInt(o[1].Value),
-                                uniqueViews = parseInt(o[2].Value),
-                                year = o[0].Value.substr(0, 4),
-                                month = o[0].Value.substr(4, 2),
-                                day = o[0].Value.substr(6, 2);
-
-                            $scope.dates.push($filter('date')(new Date(year, month - 1, day), 'EEE, d MMM'));
-                            $scope.views.push(views);
-                            $scope.unique.push(uniqueViews);
-                        }
-
-                        $scope.loadingStatus[1] = 1;
-                    } else {
-                        $scope.noData[1] = 1;
-                    }
-
-                    checkLoadingStatus();
-                });
-
-            pieManResource.getBrowserDatapoints($scope.config.profile.Id, $scope.dateSpan, $scope.filter)
-                .then(function (resp) {
-
-                    $scope.responseStatus[2] = 1;
-                    if (resp.data.browserData !== undefined && resp.data.browserData.length) {
-
-                        var bd = resp.data.browserData,
-                            bcd = resp.data.browserCatData,
-                            l = bd.length,
-                            i;
-
-                        $scope.deviceCategory = [];
-                        $scope.browserType = [];
-
-                        ['desktop', 'mobile', 'tablet'].forEach(function (type) {
-                            if (bcd.hasOwnProperty(type)) {
-                                localizationService.localize('pieman_' + type)
-                                    .then(function (val) {
-                                        $scope.deviceCategory.push([val, bcd[type]]);
-                                    });
-                            }
-                        });
-
-                        for (i = 0; i < l; i++) {
-
-                            var o = bd[i],
-                                c = 0,
-                                versionsArr = [];
-
-                            $.each(o.version,
-                                function (k, v) {
-                                    versionsArr.push([k, v]);
-                                    c += v;
-                                });
-
-                            $scope.browserType.push({
-                                name: o.browser,
-                                y: c,
-                                colorIndex: i,
-                                drilldown: {
-                                    name: o.browser + ' ' + 'versions',
-                                    data: versionsArr
-                                }
-                            });
-                        }
-                        $scope.loadingStatus[2] = 1;
-                    } else {
-                        $scope.noData[2] = 1;
-                    }
-                    checkLoadingStatus();
+                    $scope.showCharts = true;
                 });
         }
 
-        function checkLoadingStatus() {
-            if ($scope.responseStatus.indexOf(0) === -1) {
-                if ($scope.loadingStatus.indexOf(0) === -1) {
-                    $scope.showLoader = false;
-                    $scope.showCharts = true;
-                    $scope.showError = false;
-                } else if ($scope.noData.indexOf(1) !== -1) {
-                    $scope.showCharts = false;
-                    $scope.showLoader = false;
-                    $scope.showError = true;
+        /**
+         * 
+         * @param {any} data
+         */
+        function setViewsDatapoints(data) {
+
+            if (data.Body.Rows !== undefined && data.Body.Rows.length) {
+                var d = data.Body.Rows[0].Cells;
+                $scope.totalPageViews = d[0].Value;
+                $scope.avgTimeOnPage = parseInt(d[1].Value, 10).toFixed(0);
+                $scope.totalUniqueViews = d[2].Value;
+                $scope.totalVisitors = d[4].Value;
+
+                var nv = d[3].Value;
+
+                localizationService.localizeMany(['pieman_new', 'pieman_returning'])
+                    .then(function (t) {
+                        $scope.newVisits = [
+                            [t[0], parseFloat(nv)],
+                            [t[1], 100 - nv]
+                        ];
+                    });
+            }
+        }
+
+        /**
+         * 
+         * @param {any} data
+         */
+        function setViewsChartData(data) {
+
+            if (data.Body.Rows !== undefined && data.Body.Rows.length) {
+
+                $scope.dates = [];
+                $scope.views = [];
+                $scope.unique = [];
+                var len = data.Body.Rows.length;
+
+                for (var i = 0; i < len; i += 1) {
+
+                    var o = data.Body.Rows[i].Cells,
+                        views = parseInt(o[1].Value),
+                        uniqueViews = parseInt(o[2].Value),
+                        year = o[0].Value.substr(0, 4),
+                        month = o[0].Value.substr(4, 2),
+                        day = o[0].Value.substr(6, 2);
+
+                    $scope.dates.push($filter('date')(new Date(year, month - 1, day), 'EEE, d MMM'));
+                    $scope.views.push(views);
+                    $scope.unique.push(uniqueViews);
+                }
+            }
+        }
+
+        /**
+         * 
+         * @param {any} data
+         */
+        function setBrowserDatapoints(data) {
+            if (data.browserData !== undefined && data.browserData.length) {
+
+                var bd = data.browserData,
+                    bcd = data.browserCatData,
+                    l = bd.length,
+                    i;
+
+                $scope.deviceCategory = [];
+                $scope.browserType = [];
+
+                ['desktop', 'mobile', 'tablet'].forEach(function (type) {
+                    if (bcd.hasOwnProperty(type)) {
+                        localizationService.localize('pieman_' + type)
+                            .then(function (val) {
+                                $scope.deviceCategory.push([val, bcd[type]]);
+                            });
+                    }
+                });
+
+                for (i = 0; i < l; i++) {
+
+                    var o = bd[i],
+                        c = 0,
+                        versionsArr = [];
+
+                    $.each(o.version,
+                        function (k, v) {
+                            versionsArr.push([k, v]);
+                            c += v;
+                        });
+
+                    $scope.browserType.push({
+                        name: o.browser,
+                        y: c,
+                        colorIndex: i,
+                        drilldown: {
+                            name: o.browser + ' ' + 'versions',
+                            data: versionsArr
+                        }
+                    });
                 }
             }
         }
@@ -320,6 +309,7 @@
 
     angular.module('umbraco')
         .controller('PieMan.EditorController', ['$scope',
+            '$q',
             '$timeout',
             'assetsService',
             'notificationsService',

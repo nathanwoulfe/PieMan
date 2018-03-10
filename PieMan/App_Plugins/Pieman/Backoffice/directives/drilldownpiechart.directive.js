@@ -15,12 +15,13 @@
             link: function (scope, element) {
 
                 var chart;
-
+                 
                 function initChart() {
                     chart = new Highcharts.Chart({
                         chart: {
                             renderTo: element[0],
-                            type: 'pie'
+                            type: 'pie',
+                            marginBottom: 100
                         },
                         credits: {
                             enabled: false

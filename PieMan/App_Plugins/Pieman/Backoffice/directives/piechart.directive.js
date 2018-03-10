@@ -18,7 +18,7 @@
                         chart: {
                             renderTo: element[0],
                             type: 'pie',
-                            height: 500
+                            marginBottom: 100
                         },
                         credits: {
                             enabled: false
@@ -63,16 +63,10 @@
                         if (newVal && newVal.length) {
 
                             initChart();
-
-                            var data = JSON.parse(JSON.stringify(newVal));
-                            // to keep the pie charts aligned, all must have the same number of segments
-                            data.push(['3', 0]);
-                            data.push(['4', 0]);
-                            data.push(['5', 0]);
-
+                        
                             locale.localize(scope.label)
                                 .then(function (t) {
-                                    chart.series[0].setData(data, true);
+                                    chart.series[0].setData(newVal, true);
                                     chart.setTitle({ text: t });
                                     window.dispatchEvent(new Event('resize'));
                                 });
