@@ -1,6 +1,6 @@
 ﻿
 angular.module('umbraco.resources')
-    .factory('PieManSettingsResource', function ($http, $cookieStore) {
+    .factory('pieManSettingsResource', function ($http, $cookieStore) {
         return {
 
             getprevalues: function () {

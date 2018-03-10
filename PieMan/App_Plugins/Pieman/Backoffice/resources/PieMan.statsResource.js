@@ -1,5 +1,5 @@
 ﻿angular.module('umbraco.resources')
-    .factory('PieManResource', function ($http) {
+    .factory('pieManResource', function ($http) {
 
         var urlBase = 'backoffice/pieman/analyticsapi/';
 

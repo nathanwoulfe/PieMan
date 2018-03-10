@@ -11,49 +11,56 @@
             template: '<div></div>',
             link: function (scope, element) {
 
-                var chart = new Highcharts.Chart({
-                    chart: {
-                        renderTo: element[0],
-                        type: 'pie',
-                        height: 500
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    legend: {
-                        layout: 'vertical'
-                    },
-                    tooltip: {
-                        formatter: function () {
-                            return '<span>' +
-                                this.point.name +
-                                ':</span> <b>' +
-                                this.percentage.toFixed(1) +
-                                '%</b><br />';
+                var chart;
+
+                function initChart() {
+                    chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: element[0],
+                            type: 'pie',
+                            height: 500
                         },
-                        useHTML: true,
-                        style: {
-                            fontSize: '14px'
-                        }
-                    },
-                    plotOptions: {
-                        pie: {
-                            showInLegend: true,
-                            dataLabels: {
-                                enabled: false
+                        credits: {
+                            enabled: false
+                        },
+                        legend: {
+                            layout: 'vertical'
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return '<span>' +
+                                    this.point.name +
+                                    ':</span> <b>' +
+                                    this.percentage.toFixed(1) +
+                                    '%</b><br />';
+                            },
+                            useHTML: true,
+                            style: {
+                                fontSize: '14px'
                             }
-                        }
-                    },
-                    series: [
-                        {
-                            data: scope.data
-                        }
-                    ]
-                });
+                        },
+                        plotOptions: {
+                            pie: {
+                                showInLegend: true,
+                                dataLabels: {
+                                    enabled: false
+                                }
+                            }
+                        },
+                        series: [
+                            {
+                                data: scope.data
+                            }
+                        ]
+                    });
+                }
 
                 scope.$watch('data',
                     function (newVal) {
-                        if (newVal) {
+                        if (newVal && newVal.length) {
+
+                            initChart();
+
                             var data = JSON.parse(JSON.stringify(newVal));
                             // to keep the pie charts aligned, all must have the same number of segments
                             data.push(['3', 0]);

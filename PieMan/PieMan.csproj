@@ -286,7 +286,6 @@
     <None Include="App_Plugins\Pieman\Backoffice\css\_variables.scss" />
     <Content Include="App_Plugins\Pieman\Backoffice\directives\linechart.directive.js" />
     <None Include="App_Plugins\Pieman\Backoffice\LICENSE" />
-    <None Include="App_Plugins\Pieman\Backoffice\package.manifest" />
     <None Include="App_Plugins\Pieman\Backoffice\README.md" />
     <None Include="App_Plugins\Pieman\dist.manifest" />
     <None Include="App_Plugins\Pieman\package.manifest" />

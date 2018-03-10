@@ -43,8 +43,7 @@
         '~/App_Plugins/PieMan/backoffice/directives/piechart.directive.js',
         '~/App_Plugins/PieMan/backoffice/directives/linechart.directive.js',
 		'~/App_Plugins/PieMan/backoffice/resources/PieMan.statsResource.js',
-		'~/App_Plugins/PieMan/backoffice/resources/PieMan.settingsResource.js',
-		'~/App_Plugins/PieMan/backoffice/lib/highcharts.js'
+		'~/App_Plugins/PieMan/backoffice/resources/PieMan.settingsResource.js'
     ],
 	css: [
 		'~/App_Plugins/PieMan/backoffice/lib/highcharts.css',

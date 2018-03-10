@@ -38,7 +38,7 @@
     ]
     ,
     javascript: [
-        '~/App_Plugins/pieman/backoffice/lib/highcharts/highcharts.js',
+		// highcharts is not defined - loaded in the controller after checking for existence
         '~/App_Plugins/pieman/backoffice/js/pieman.js'
     ],
     css: [

@@ -17,7 +17,7 @@
 	<!-- SHARED PROPERTIES -->
 	<PropertyGroup>
 		<PackageName>PieMan</PackageName>
-		<MinUmbracoVersion>7.7.0</MinUmbracoVersion>
+		<MinUmbracoVersion>7.6.0</MinUmbracoVersion>
 		<Readme>Simple analytics for Umbraco.</Readme>
 		<AuthorName>Nathan Woulfe</AuthorName>
 		<AuthorUrl>https://github.com/nathanwoulfe</AuthorUrl>

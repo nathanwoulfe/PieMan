@@ -1,5 +1,5 @@
 angular.module('umbraco')
-    .controller('PieMan.EditorController', function ($scope, localizationService, $http, pieManResource, $filter, editorState, userService, contentResource, pieManSettingsResource, dialogService) {
+    .controller('PieMan.EditorController', function ($scope, assetsService, localizationService, pieManResource, $filter, editorState, pieManSettingsResource, dialogService) {
 
         // wire up the settings dialog
         $scope.settingsDialog = function() {
@@ -270,7 +270,15 @@ angular.module('umbraco')
             });
         }
 
-        init();
+        // check that highcharts doesn't already exist - will still work if we load it twice, but that's not cool
+        if (window.Highcharts) {
+            init();
+        } else { 
+            assetsService.loadJs('~/app_plugins/pieman/backoffice/lib/highcharts.js')
+                .then(function() {
+                    init();
+                });
+        }
     })
 
     .filter('secondsToString', function () {

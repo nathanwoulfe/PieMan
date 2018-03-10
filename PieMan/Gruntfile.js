@@ -133,8 +133,8 @@
 
             auth: {
                 expand: true,
-                cwd: '<%= basePath %>/',
-                src: 'auth/**',
+                cwd: '<%= basePath %>/auth/',
+                src: '**',
                 dest: '<%= dest %>/<%= basePath %>/auth/'
             },
 
