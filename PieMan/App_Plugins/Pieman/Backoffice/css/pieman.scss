@@ -151,7 +151,7 @@
         }
     }
 
-    .btn {
+    .btn-fetch {
         opacity: 1;
         background: #fff;
         border: none;
@@ -191,8 +191,8 @@
         padding: 5px 10px;
 
         p {
-            color: #fff; 
-             
+            color: #fff;
+
             &:last-of-type {
                 margin-bottom: 0;
             }
@@ -204,16 +204,18 @@
 
 .pieman-settings {
     label.control-label {
-        float: left!important;
-        max-width: 180px;  
+        float: left !important;
+        max-width: 180px;
     }
 
-    h5 localize {
-        text-transform:uppercase;
+    h5 {
+        localize {
+            text-transform: uppercase;
+        }
 
         span {
-            text-transform:none;
-            font-weight:normal;
+            text-transform: none;
+            font-weight: normal;
         }
     }
 }

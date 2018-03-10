@@ -18,17 +18,23 @@
                     $scope.settingsOverlay = null;
 
                     if (model.account.Id !== '') {
+                        $scope.loading = true;
+
                         pieManSettingsResource.saveprevalue(model.account, 'account').then(function () {
                             localizationService.localize('pieman_accountDetailsSaved').then(function (val) {
                                 notificationsService.success('Success', val);
+                                $scope.loading = false;
                             });
                         });
                     }
 
                     if (model.profile.Id !== '') {
+                        $scope.loading = true;
+
                         pieManSettingsResource.saveprevalue(model.profile, 'profile').then(function () {
                             localizationService.localize('pieman_profileDetailsSaved').then(function (val) {
                                 notificationsService.success('Success', val);
+                                $scope.loading = false;
                             });
                         });
                     }

@@ -145,15 +145,15 @@
       .pieman-editor .controls a.icon-delete {
         padding-left: 8px;
         width: 30px; }
-  .pieman-editor .btn {
+  .pieman-editor .btn-fetch {
     opacity: 1;
     background: #fff;
     border: none;
     padding: 5px 0;
     transition: background .2s ease-in-out; }
-    .pieman-editor .btn:hover {
+    .pieman-editor .btn-fetch:hover {
       background: #ccc; }
-    .pieman-editor .btn .disabled {
+    .pieman-editor .btn-fetch .disabled {
       opacity: 0;
       transition: opacity ease-in-out .2s; }
   .pieman-editor .highcharts-tooltip hr {
@@ -180,9 +180,9 @@
   max-width: 180px; }
 .pieman-settings h5 localize {
   text-transform: uppercase; }
-  .pieman-settings h5 localize span {
-    text-transform: none;
-    font-weight: normal; }
+.pieman-settings h5 span {
+  text-transform: none;
+  font-weight: normal; }
 
 @-webkit-keyframes bg-pulse {
   0% {
