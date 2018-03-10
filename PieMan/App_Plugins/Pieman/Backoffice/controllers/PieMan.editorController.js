@@ -110,11 +110,11 @@
                     endDate.toUTCString(),
                     $scope.filter)
                     .then(function (resp) {
-                        var len = resp.data.Body.Rows.length, tempV = [], tempU = [], tempD = [];
+                        var len = resp.Body.Rows.length, tempV = [], tempU = [], tempD = [];
 
                         for (var i = 0; i < len; i += 1) {
 
-                            var o = resp.data.Body.Rows[i].Cells,
+                            var o = resp.Body.Rows[i].Cells,
                                 views = parseInt(o[1].Value),
                                 uniqueViews = parseInt(o[2].Value),
                                 year = o[0].Value.substr(0, 4),
@@ -143,7 +143,6 @@
             $scope.pagePath = editorState.current.urls[0];
             setComparisonOptions();
 
-            var len, i;
             if ($scope.pagePath.length > 1) {
                 var a = document.createElement('a');
                 a.href = $scope.pagePath;
