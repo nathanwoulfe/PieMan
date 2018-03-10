@@ -1,33 +1,38 @@
-﻿using Newtonsoft.Json;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
-
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
-
-using PieMan.Models;
 
 namespace PieMan.Controllers
 {
     [PluginController("PieMan")]
     public class EditorApiController : UmbracoAuthorizedApiController
     {
+        private readonly IDataTypeService _dataTypeService;
+        private const string Alias = "NW.PieMan";
+
+        public EditorApiController()
+        {
+            _dataTypeService = Services.DataTypeService;
+        }
+
         /// <summary>
         /// Gets the config data stored in the property editor prevalues
         /// </summary>
         /// <returns></returns>
         public object GetPrevalues()
         {
-            var dataType = Services.DataTypeService.GetDataTypeDefinitionByPropertyEditorAlias("NW.PieMan").First();
+            IDataTypeDefinition dataType = _dataTypeService.GetDataTypeDefinitionByPropertyEditorAlias(Alias).First();
             if (dataType == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-            var prevalues = Services.DataTypeService.GetPreValuesByDataTypeId(dataType.Id);
+            IEnumerable<string> prevalues = _dataTypeService.GetPreValuesByDataTypeId(dataType.Id);
+
             return new { prevalues };
         }
 
@@ -38,12 +43,12 @@ namespace PieMan.Controllers
         /// <param name="alias">The prevalue to update</param>
         public void UpdatePrevalueForEditor(string prevalue, string alias)
         {
-            var datatype = Services.DataTypeService.GetDataTypeDefinitionByPropertyEditorAlias("NW.PieMan").First();
-            var prevalues = Services.DataTypeService.GetPreValuesCollectionByDataTypeId(datatype.Id).PreValuesAsDictionary;
+            IDataTypeDefinition datatype = _dataTypeService.GetDataTypeDefinitionByPropertyEditorAlias(Alias).First();
+            IDictionary<string, PreValue> prevalues = _dataTypeService.GetPreValuesCollectionByDataTypeId(datatype.Id).PreValuesAsDictionary;
 
             prevalues[alias] = new PreValue(prevalue);
 
-            Services.DataTypeService.SaveDataTypeAndPreValues(datatype, prevalues);
+            _dataTypeService.SaveDataTypeAndPreValues(datatype, prevalues);
         }
     }
 }

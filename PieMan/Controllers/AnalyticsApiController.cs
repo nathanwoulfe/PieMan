@@ -23,13 +23,18 @@ namespace PieMan.Controllers
     [PluginController("PieMan")]
     public class AnalyticsApiController : UmbracoAuthorizedApiController
     {
+        private static GoogleService _googleService;
+
         /// <summary>
         /// Creates GoogleService from the current saved account, using the config values stored as prevalues of the property editor
         /// </summary>
         /// <returns>GoogleService instance</returns>
-        private static GoogleService GetGoogleService()
+        private static void EnsureGoogleService()
         {
-            return GoogleService.CreateFromRefreshToken(Config.ClientIdFromPropertyEditor, Config.ClientSecretFromPropertyEditor, Config.RefreshTokenFromPropertyEditor);
+            if (_googleService == null)
+            {
+                _googleService = GoogleService.CreateFromRefreshToken(Config.ClientIdFromPropertyEditor, Config.ClientSecretFromPropertyEditor, Config.RefreshTokenFromPropertyEditor);
+            }
         }
 
         /// <summary>
@@ -38,15 +43,8 @@ namespace PieMan.Controllers
         /// <returns>Array of AnalyicsAccount objects</returns>
         public AnalyticsAccount[] GetAccounts()
         {
-            try
-            {
-                GoogleService service = GetGoogleService();
-                return service.Analytics.Management.GetAccounts().Body.Items;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            EnsureGoogleService();
+            return _googleService.Analytics.Management.GetAccounts().Body.Items;
         }
 
         /// <summary>
@@ -55,8 +53,8 @@ namespace PieMan.Controllers
         /// <returns>Array of AnalyticsProfile objects</returns>
         public AnalyticsProfile[] GetProfiles()
         {
-            GoogleService service = GetGoogleService();
-            return service.Analytics.Management.GetProfiles().Body.Items;
+            EnsureGoogleService();
+            return _googleService.Analytics.Management.GetProfiles().Body.Items;
         }
 
         /// <summary>
@@ -66,8 +64,7 @@ namespace PieMan.Controllers
         /// <returns>Array of AnalyticsProfile objects</returns>
         public AnalyticsProfile[] GetProfilesFromAccount(string accountId)
         {
-            GoogleService service = GetGoogleService();
-            AnalyticsProfile[] profiles = service.Analytics.Management.GetProfiles().Body.Items;
+            AnalyticsProfile[] profiles = _googleService.Analytics.Management.GetProfiles().Body.Items;
 
             return profiles.Where(x => x.AccountId == accountId).ToArray();
         }
@@ -81,10 +78,10 @@ namespace PieMan.Controllers
         /// <returns></returns>
         public HttpResponseMessage GetViewsDatapoints(string profile, string dateSpan, string filter)
         {
-            GoogleService service = GetGoogleService();
+            EnsureGoogleService();
 
             return Response(
-                service.Analytics.Data.GetData(
+                _googleService.Analytics.Data.GetData(
                     new AnalyticsGetDataOptions
                     {
                         ProfileId = profile,
@@ -104,10 +101,10 @@ namespace PieMan.Controllers
         /// <returns></returns>
         public HttpResponseMessage GetViewsChartdata(string profile, string dateSpan, string filter)
         {
-            GoogleService service = GetGoogleService();
+            EnsureGoogleService();
 
             return Response(
-                service.Analytics.Data.GetData(
+                _googleService.Analytics.Data.GetData(
                     new AnalyticsGetDataOptions
                     {
                         ProfileId = profile,
@@ -130,9 +127,10 @@ namespace PieMan.Controllers
         /// <returns></returns>
         public HttpResponseMessage GetComparisonChartdata(string profile, string startDate, string endDate, string filter)
         {
-            GoogleService service = GetGoogleService();
+            EnsureGoogleService();
+
             return Response(
-                service.Analytics.Data.GetData(
+                _googleService.Analytics.Data.GetData(
                     new AnalyticsGetDataOptions
                     {
                         ProfileId = profile,
@@ -153,8 +151,9 @@ namespace PieMan.Controllers
         /// <returns></returns>
         public HttpResponseMessage GetBrowserDatapoints(string profile, string dateSpan, string filter)
         {
-            GoogleService service = GetGoogleService();
-            AnalyticsGetDataResponse data = service.Analytics.Data.GetData(new AnalyticsGetDataOptions
+            EnsureGoogleService();
+
+            AnalyticsGetDataResponse data = _googleService.Analytics.Data.GetData(new AnalyticsGetDataOptions
             {
                 ProfileId = profile,
                 StartDate = StartDate(dateSpan),
