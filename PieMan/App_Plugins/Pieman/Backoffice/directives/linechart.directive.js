@@ -27,6 +27,9 @@
                         credits: {
                             enabled: false
                         },
+                        exporting: {
+                            enabled: false
+                        },
                         plotOptions: {
                             line: {
                                 marker: {

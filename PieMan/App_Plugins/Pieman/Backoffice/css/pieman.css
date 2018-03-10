@@ -1,52 +1,46 @@
-.highcharts-root {
-  width: 100%; }
-.highcharts-container {
-  font-family: Lato,Helvetica Neue,Helvetica,Arial,sans-serif; }
-
-.highcharts-color-0 {
-  stroke: #00aea2;
-  fill: #00aea2;
-  color: #00aea2; }
-
-.highcharts-color-1 {
-  stroke: #413659;
-  fill: #413659;
-  color: #413659; }
-  .highcharts-color-1 .highcharts-point {
-    stroke: #413659;
-    fill: #413659; }
-
-.highcharts-pie-series .highcharts-point {
-  stroke: none; }
-
-.PieMan-drilldown-pie .highcharts-color-0 {
-  stroke: #00aea2;
-  fill: #00aea2;
-  color: #00aea2; }
-.PieMan-drilldown-pie .highcharts-color-1 {
-  stroke: #2e9593;
-  fill: #2e9593;
-  color: #2e9593; }
-.PieMan-drilldown-pie .highcharts-color-2 {
-  stroke: #3c7d84;
-  fill: #3c7d84;
-  color: #3c7d84; }
-.PieMan-drilldown-pie .highcharts-color-3 {
-  stroke: #426576;
-  fill: #426576;
-  color: #426576; }
-.PieMan-drilldown-pie .highcharts-color-4 {
-  stroke: #434d67;
-  fill: #434d67;
-  color: #434d67; }
-
-.PieMan-pie .highcharts-color-2,
-.PieMan-pie .highcharts-color-3,
-.PieMan-pie .highcharts-color-4 {
-  display: none; }
-
 .pieman-editor {
   position: relative; }
+  .pieman-editor .highcharts-root {
+    width: 100%; }
+  .pieman-editor .highcharts-container {
+    font-family: Lato,Helvetica Neue,Helvetica,Arial,sans-serif; }
+  .pieman-editor .highcharts-color-0 {
+    stroke: #00aea2;
+    fill: #00aea2;
+    color: #00aea2; }
+  .pieman-editor .highcharts-color-1 {
+    stroke: #413659;
+    fill: #413659;
+    color: #413659; }
+    .pieman-editor .highcharts-color-1 .highcharts-point {
+      stroke: #413659;
+      fill: #413659; }
+  .pieman-editor .highcharts-pie-series .highcharts-point {
+    stroke: none; }
+  .pieman-editor .PieMan-drilldown-pie .highcharts-color-0 {
+    stroke: #00aea2;
+    fill: #00aea2;
+    color: #00aea2; }
+  .pieman-editor .PieMan-drilldown-pie .highcharts-color-1 {
+    stroke: #2e9593;
+    fill: #2e9593;
+    color: #2e9593; }
+  .pieman-editor .PieMan-drilldown-pie .highcharts-color-2 {
+    stroke: #3c7d84;
+    fill: #3c7d84;
+    color: #3c7d84; }
+  .pieman-editor .PieMan-drilldown-pie .highcharts-color-3 {
+    stroke: #426576;
+    fill: #426576;
+    color: #426576; }
+  .pieman-editor .PieMan-drilldown-pie .highcharts-color-4 {
+    stroke: #434d67;
+    fill: #434d67;
+    color: #434d67; }
+  .pieman-editor .PieMan-pie .highcharts-color-2,
+  .pieman-editor .PieMan-pie .highcharts-color-3,
+  .pieman-editor .PieMan-pie .highcharts-color-4 {
+    display: none; }
   .pieman-editor .btn-settings {
     font-size: 30px;
     cursor: pointer;

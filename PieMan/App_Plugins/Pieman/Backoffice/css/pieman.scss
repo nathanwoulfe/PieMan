@@ -1,8 +1,10 @@
 ﻿@import "_variables";
-@import "highcharts";
 
 .pieman-editor {
     position: relative;
+
+    // namespace all charts css
+    @import "highcharts";
 
     .btn-settings {
         font-size: 30px;
