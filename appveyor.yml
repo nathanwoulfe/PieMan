@@ -1,5 +1,5 @@
 # version format
-version: 2.0.5.{build}
+version: 2.1.0.{build}
 
 image: Visual Studio 2017
 
@@ -42,8 +42,8 @@ deploy:
         appveyor_repo_tag: true      
     
   - provider: GitHub
-    tag: v2.0.5
-    release: Release v2.0.5
+    tag: v2.1.0
+    release: Release v2.1.0
     description: 'Refactor the whole shebang.'
     force_update: true
     auth_token:
