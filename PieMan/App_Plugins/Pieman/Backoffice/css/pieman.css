@@ -175,33 +175,14 @@
         margin-bottom: 0; }
 
 /*** settings ***/
-.pieman-settings .umb-pane {
-  margin: 0; }
-.pieman-settings header {
-  background: #1d1d1d;
-  padding: 15px 15px 7px;
-  margin: 0 0 15px 0;
-  color: #d9d9d9; }
-  .pieman-settings header h3 {
-    font-size: 38.5px; }
-  .pieman-settings header h3 span {
-    color: #df7f48; }
-  .pieman-settings header h4 {
-    text-transform: uppercase;
-    font-size: 18px; }
-.pieman-settings section {
-  padding: 15px; }
-  .pieman-settings section .btns {
-    text-align: right;
-    display: block; }
-    .pieman-settings section .btns button {
-      display: inline-block;
-      margin-left: 0; }
-  .pieman-settings section h5 {
-    margin: 5px 0;
-    text-transform: none; }
-    .pieman-settings section h5 localize {
-      text-transform: uppercase; }
+.pieman-settings label.control-label {
+  float: left !important;
+  max-width: 180px; }
+.pieman-settings h5 localize {
+  text-transform: uppercase; }
+  .pieman-settings h5 localize span {
+    text-transform: none;
+    font-weight: normal; }
 
 @-webkit-keyframes bg-pulse {
   0% {

@@ -2,7 +2,6 @@
 
 .pieman-editor {
     position: relative;
-
     // namespace all charts css
     @import "highcharts";
 
@@ -184,19 +183,18 @@
 }
 
 .pieman-error {
-
-    text-align:center;
+    text-align: center;
 
     .error-block {
-        background:$danger;
-        display:inline-block;
-        padding:5px 10px;
+        background: $danger;
+        display: inline-block;
+        padding: 5px 10px;
 
         p {
-            color:#fff;
-
+            color: #fff; 
+             
             &:last-of-type {
-                margin-bottom:0;
+                margin-bottom: 0;
             }
         }
     }
@@ -205,52 +203,17 @@
 /*** settings ***/
 
 .pieman-settings {
-
-    .umb-pane {
-        margin: 0;
+    label.control-label {
+        float: left!important;
+        max-width: 180px;  
     }
 
-    header {
-        background: #1d1d1d;
-        padding: 15px 15px 7px;
-        margin: 0 0 15px 0;
-        color: #d9d9d9;
+    h5 localize {
+        text-transform:uppercase;
 
-        h3 {
-            font-size: 38.5px;
-        }
-
-
-        h3 span {
-            color: #df7f48;
-        }
-
-        h4 {
-            text-transform: uppercase;
-            font-size: 18px;
-        }
-    }
-
-    section {
-        padding: 15px;
-
-        .btns {
-            text-align: right;
-            display: block;
-
-            button {
-                display: inline-block;
-                margin-left: 0;
-            }
-        }
-
-        h5 {
-            margin: 5px 0;
-            text-transform: none;
-
-            localize {
-                text-transform:uppercase;
-            }
+        span {
+            text-transform:none;
+            font-weight:normal;
         }
     }
 }

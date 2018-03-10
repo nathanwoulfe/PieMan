@@ -128,7 +128,7 @@
 
             css: {
                 src: '<%= basePath %>/backoffice/css/pieman.css',
-                dest: '<%= dest %>/<%= basePath %>/backoffice/css/pieman.min.css', // yes, it's not minified, but the build task will overwrite it later
+                dest: '<%= dest %>/<%= basePath %>/backoffice/css/pieman.css', 
             },
 
             auth: {

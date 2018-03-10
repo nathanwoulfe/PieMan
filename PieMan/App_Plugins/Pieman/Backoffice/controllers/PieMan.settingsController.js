@@ -1,95 +1,92 @@
-﻿angular.module('umbraco').controller('PieMan.SettingsController',
-    function ($scope, pieManSettingsResource, notificationsService, localizationService) {
+﻿(function () {
+    'use strict';
 
-        $scope.settings = $scope.dialogData.settings;
-        $scope.selectedaccount = $scope.dialogData.account;
-        $scope.selectedprofile = $scope.dialogData.profile;
+    function settings($scope, pieManSettingsResource) {
 
-        if ($scope.dialogData.settings.refresh_token !== '') {
+        var vm = this;
+
+        if ($scope.model.settings.refresh_token !== '') {
             //Show or hide the auth button (set on scope & local var for if check)
-            $scope.isAuthd = true;
+            vm.isAuthd = true;
 
-            //Only load/fetch if showAuth is true
-            if ($scope.isAuthd) {
+            //Get all accounts via PieManSettingsResource - does WebAPI GET call
+            vm.loading = true;
+            pieManSettingsResource.getaccounts().then(function (response) {
+                vm.accounts = response.data;
 
-                //Get all accounts via PieManSettingsResource - does WebAPI GET call
-                pieManSettingsResource.getaccounts().then(function (response) {
-                    $scope.accounts = response.data;
+                if ($scope.model.account) {
+                    vm.selectedAccount = _.where(vm.accounts, { Id: $scope.model.account.Id })[0];
+                }
 
-                    if ($scope.selectedaccount.Id !== '') {
-                        getProfiles($scope.selectedaccount.Id);
-                    }
+                if (vm.selectedAccount.Id !== '') {
+                    getProfiles();
+                }
 
-                    $scope.selectedaccount = _.where($scope.accounts, { Id: $scope.selectedaccount.Id })[0];
-                });
-                
-                //When an account is selected
-                $scope.accountSelected = function (selectedAccount) {
-
-                    $scope.dialogData.account = {};
-                    $scope.dialogData.account.Name = selectedAccount.Name;
-                    $scope.dialogData.account.Id = selectedAccount.Id;
-                    $scope.dialogData.account.Created = new Date(selectedAccount.Created).toISOString();
-                    $scope.dialogData.account.Updated = new Date(selectedAccount.Updated).toISOString();
-
-                    getProfiles(selectedAccount.Id);
-                };
-
-                //When a profile is selected
-                $scope.profileSelected = function (selectedProfile) {
-
-                    var o = {};
-                    o.AccountId = selectedProfile.AccountId;
-                    o.Created = new Date(selectedProfile.Created).toISOString();
-                    o.Currency = selectedProfile.Currency;
-                    o.Id = selectedProfile.Id;
-                    o.InternalWebPropertyId = selectedProfile.InternalWebPropertyId;
-                    o.Name = selectedProfile.Name;
-                    o.Timezone = selectedProfile.Timezone;
-                    o.Type = selectedProfile.Type;
-                    o.Updated = new Date(selectedProfile.Updated).toISOString();
-                    o.WebPropertyId = selectedProfile.WebPropertyId;
-                    o.WebsiteUrl = selectedProfile.WebsiteUrl;
-
-                    $scope.selectedprofile = selectedProfile;
-                    $scope.dialogData.profile = o;
-                };
-            }
-        }
-
-        function getProfiles(id) {
-            pieManSettingsResource.getprofiles(id).then(function (response) {
-                $scope.profiles = response.data;
-                $scope.selectedprofile = _.where($scope.profiles, { Id: $scope.selectedprofile.Id })[0];
+                vm.loading = false;
             });
         }
 
+        /**
+         * 
+         */
+        function getProfiles() {
+            vm.loading = true;
+            pieManSettingsResource.getprofiles(vm.selectedAccount.Id).then(function (response) {
+                vm.profiles = response.data;
+
+                if ($scope.model.profile) {
+                    vm.selectedProfile = _.where(vm.profiles, { Id: $scope.model.profile.Id })[0];
+                    vm.loading = false;
+                }
+            });
+        }
+
+        /**
+         * Map the selection to the model - don't want/need all properties
+         */
+        function accountSelected() {
+            $scope.model.account = {
+                'Name': vm.selectedAccount.Name,
+                'Id': vm.selectedAccount.Id,
+                'Created': new Date(vm.selectedAccount.Created).toISOString(),
+                'Updated': new Date(vm.selectedAccount.Updated).toISOString()
+            }
+
+            getProfiles();
+        };
+
+        //When a profile is selected
+        function profileSelected() {
+            $scope.model.profile = {
+                'AccountId': vm.selectedProfile.AccountId,
+                'Created': new Date(vm.selectedProfile.Created).toISOString(),
+                'Currency': vm.selectedProfile.Currency,
+                'Id': vm.selectedProfile.Id,
+                'InternalWebPropertyId': vm.selectedProfile.InternalWebPropertyId,
+                'Name': vm.selectedProfile.Name,
+                'Timezone': vm.selectedProfile.Timezone,
+                'Type': vm.selectedProfile.Type,
+                'Updated': new Date(vm.selectedProfile.Updated).toISOString(),
+                'WebPropertyId': vm.selectedProfile.WebPropertyId,
+                'WebsiteUrl': vm.selectedProfile.WebsiteUrl
+            };
+        };
+
         //Auth - Click
-        $scope.auth = function () {
+        function doAuthorise() {
             //Open a dialog window to oAuth
             window.open('/App_Plugins/PieMan/auth/OAuth.aspx', 'oAuthAnalytics', 'location=0,status=0,width=600,height=600');
         };
 
-        //Save - click...
-        $scope.save = function () {
+        // expose some stuff
+        angular.extend(vm,
+            {
+                doAuthorise: doAuthorise,
+                accountSelected: accountSelected,
+                profileSelected: profileSelected
+            });
+    }
 
-            if ($scope.dialogData.account.Id !== '') {
-                pieManSettingsResource.saveprevalue($scope.dialogData.account, 'account').then(function () {
-                    localizationService.localize('pieman_accountDetailsSaved').then(function (val) {
-                        notificationsService.success('Success', val);
-                    });
-                });
-            }
+    angular.module('umbraco').controller('PieMan.SettingsController', ['$scope', 'pieManSettingsResource', settings]);
 
-            if ($scope.dialogData.profile.Id !== '') {
-                pieManSettingsResource.saveprevalue($scope.dialogData.profile, 'profile').then(function () {
-                    localizationService.localize('pieman_profileDetailsSaved').then(function (val) {
-                        notificationsService.success('Success', val);
-                    });
-                });
-            }
-
-            $scope.submit();
-        };
-
-    }); 
+}());

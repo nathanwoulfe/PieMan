@@ -4,7 +4,7 @@
             <span ng-show="!showCharts"><localize key="pieman_showAnalyticsForPrevious">Show analytics for previous</localize>&nbsp;<input type="text" ng-model="dateSpan" />&nbsp;<localize key="pieman_days">days</localize></span>
             <span ng-show="showCharts"><localize key="pieman_showingAnalyticsForPrevious">Showing analytics for previous</localize>&nbsp;{{dateSpan}}&nbsp;<localize key="pieman_days">days</localize></span>
             <a class="btn icon" ng-click="toggleState()" ng-class="{'loading': showLoader, 'icon-play': !showCharts, 'icon-delete': showCharts}"></a>
-            <i class="icon icon-settings hover-show pull-right btn-settings" ng-show="userType !== 'author'" ng-click="settingsDialog()" title="Settings"></i>
+            <i class="icon icon-settings hover-show pull-right btn-settings" ng-show="userType !== 'author'" ng-click="openSettings()" title="Settings"></i>
         </div>
     </div>
      
@@ -72,5 +72,11 @@
 
 
     </div>
+    
+    <umb-overlay ng-if="settingsOverlay.show"
+                 model="settingsOverlay"
+                 view="settingsOverlay.view"
+                 position="right">
+    </umb-overlay>
 
 </div>

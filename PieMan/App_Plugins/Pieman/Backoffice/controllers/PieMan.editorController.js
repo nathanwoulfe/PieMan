@@ -1,16 +1,47 @@
-angular.module('umbraco')
-    .controller('PieMan.EditorController', function ($scope, assetsService, localizationService, pieManResource, $filter, editorState, pieManSettingsResource, dialogService) {
+(function () {
+    'use strict';
+
+    function editor($scope, $timeout, assetsService, notificationsService, localizationService, pieManResource, $filter, editorState, pieManSettingsResource) {
 
         // wire up the settings dialog
-        $scope.settingsDialog = function() {
-            dialogService.open({
-                template: '../App_Plugins/PieMan/backoffice/partials/settings.html',
+        $scope.openSettings = function () {
+            $scope.settingsOverlay = {
+                view: '../app_plugins/pieman/backoffice/partials/settings.html',
                 show: true,
-                dialogData: $scope.config,
-                callback: function() {
-                    setTimeout(function() { init(); }, 1);
+                title: 'Analytics settings',
+                settings: $scope.config.settings,
+                account: $scope.config.account,
+                profile: $scope.config.profile,
+                submit: function (model) {
+
+                    $scope.settingsOverlay.shpw = false;
+                    $scope.settingsOverlay = null;
+
+                    if (model.account.Id !== '') {
+                        pieManSettingsResource.saveprevalue(model.account, 'account').then(function () {
+                            localizationService.localize('pieman_accountDetailsSaved').then(function (val) {
+                                notificationsService.success('Success', val);
+                            });
+                        });
+                    }
+
+                    if (model.profile.Id !== '') {
+                        pieManSettingsResource.saveprevalue(model.profile, 'profile').then(function () {
+                            localizationService.localize('pieman_profileDetailsSaved').then(function (val) {
+                                notificationsService.success('Success', val);
+                            });
+                        });
+                    }
+
+                    $timeout(function () {
+                        init();
+                    });
+                },
+                close: function () {
+                    $scope.settingsOverlay.shpw = false;
+                    $scope.settingsOverlay = null;
                 }
-            });
+            }
         };
 
         // back to the start
@@ -50,7 +81,7 @@ angular.module('umbraco')
                 });
         }
 
-        $scope.getComparisonData = function() {
+        $scope.getComparisonData = function () {
 
             var startDate = new Date(),
                 endDate = new Date();
@@ -69,10 +100,10 @@ angular.module('umbraco')
             if ($scope.comparisonType > 0) {
 
                 pieManResource.getComparisonChartData($scope.config.profile.Id,
-                        startDate.toUTCString(),
-                        endDate.toUTCString(),
-                        $scope.filter)
-                    .then(function(resp) {
+                    startDate.toUTCString(),
+                    endDate.toUTCString(),
+                    $scope.filter)
+                    .then(function (resp) {
                         var len = resp.data.Body.Rows.length, tempV = [], tempU = [], tempD = [];
 
                         for (var i = 0; i < len; i += 1) {
@@ -200,7 +231,7 @@ angular.module('umbraco')
                         ['desktop', 'mobile', 'tablet'].forEach(function (type) {
                             if (bcd.hasOwnProperty(type)) {
                                 localizationService.localize('pieman_' + type)
-                                    .then(function(val) {
+                                    .then(function (val) {
                                         $scope.deviceCategory.push([val, bcd[type]]);
                                     });
                             }
@@ -250,7 +281,7 @@ angular.module('umbraco')
             }
         }
 
-        $scope.toggleState = function() {
+        $scope.toggleState = function () {
             if ($scope.showCharts) {
                 reset();
             } else {
@@ -273,16 +304,30 @@ angular.module('umbraco')
         // check that highcharts doesn't already exist - will still work if we load it twice, but that's not cool
         if (window.Highcharts) {
             init();
-        } else { 
+        } else {
             assetsService.loadJs('~/app_plugins/pieman/backoffice/lib/highcharts.js')
-                .then(function() {
+                .then(function () {
                     init();
                 });
         }
-    })
+    }
 
-    .filter('secondsToString', function () {
-        return function(seconds) {
+    angular.module('umbraco')
+        .controller('PieMan.EditorController', ['$scope',
+            '$timeout',
+            'assetsService',
+            'notificationsService',
+            'localizationService',
+            'pieManResource',
+            '$filter',
+            'editorState',
+            'pieManSettingsResource', editor]);
+
+    /**
+     * *
+     */
+    function secondsToString() {
+        return function (seconds) {
             var days = Math.floor(seconds / 86400),
                 hours = Math.floor((seconds % 86400) / 3600),
                 minutes = Math.floor(((seconds % 86400) % 3600) / 60),
@@ -302,5 +347,8 @@ angular.module('umbraco')
 
             return timeString;
         };
-    });
+    }
+
+    angular.module('umbraco.filters').filter('secondsToString', secondsToString);
+}());
 

@@ -149,7 +149,7 @@
                 scope.$watch('prevUnique',
                     function (newVal, oldVal) {
                         if (newVal && newVal.length) {
-                            locale.localizeMany('pieman_comparison', 'pieman_unique')
+                            locale.localizeMany(['pieman_comparison', 'pieman_unique'])
                                 .then(function (t) {
                                     chartComparison(newVal, oldVal, t[0] + ' - ' + t[1], 3);
                                 });

@@ -47,6 +47,6 @@
     ],
 	css: [
 		'~/App_Plugins/PieMan/backoffice/lib/highcharts.css',
-		'~/App_Plugins/PieMan/backoffice/css/pieman.min.css'
+		'~/App_Plugins/PieMan/backoffice/css/pieman.css'
 	]
 }
