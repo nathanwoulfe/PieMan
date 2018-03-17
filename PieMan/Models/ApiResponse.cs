@@ -7,7 +7,7 @@ namespace PieMan.Models
     public class BrowserDataObject
     {
       public Dictionary<string, int> browserCatData;
-      public List<ApiResponse.BrowserData> browserData;
+      public IEnumerable<BrowserData> browserData;
     }
 
     public class BrowserCatData

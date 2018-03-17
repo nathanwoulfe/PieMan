@@ -6,10 +6,10 @@
         var vm = this;
 
         if ($scope.model.settings.refresh_token !== '') {
-            //Show or hide the auth button (set on scope & local var for if check)
+            //Show or hide the auth button
             vm.isAuthd = true;
 
-            //Get all accounts via PieManSettingsResource - does WebAPI GET call
+            //Get all accounts via PieManSettingsResource
             vm.loading = true;
             pieManSettingsResource.getaccounts().then(function (response) {
                 vm.accounts = response.data;

@@ -81,9 +81,10 @@
         },
 
         watch: {
+            // dev watches everything, copies everything
             dev: {
-                files: ['<%= basePath %>/**/*.scss', '<%= basePath %>/**/*.js', '<%= basePath %>/**/*.html', '<%= basePath %>/Lang/**'],
-                tasks: ['sass:dist', 'copy:css', 'copy:js', 'copy:partials', 'copy:lang'],
+                files: ['<%= basePath %>/**/*'],
+                tasks: ['sass:dist', 'copy:dev'],
                 options: {
                     livereload: true
                 }
@@ -121,6 +122,12 @@
         },
 
         copy: {
+            dev: {
+                expand: true,
+                cwd: '<%= basePath %>/',
+                src: '**/*',
+                dest: '../pieman.site/<%= basePath %>/',
+            },
             config: {
                 src: '<%= basePath %>/dist.manifest', // dist.manifest only references the compiled, prod-ready css/js
                 dest: '<%= dest %>/<%= basePath %>/package.manifest',

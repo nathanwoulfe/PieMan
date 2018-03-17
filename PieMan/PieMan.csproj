@@ -243,7 +243,6 @@
     <Compile Include="App_Plugins\Pieman\auth\OAuthCallback.aspx.designer.cs">
       <DependentUpon>OAuthCallback.aspx.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\oAuthApiController.cs" />
     <Compile Include="Controllers\PropertyEditorController.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\SettingsValue.cs" />

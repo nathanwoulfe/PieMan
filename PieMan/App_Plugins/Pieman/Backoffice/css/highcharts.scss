@@ -8,10 +8,6 @@
     &-container {
         font-family: Lato,Helvetica Neue,Helvetica,Arial,sans-serif; // umbraco defaults
     }
-
-    &-grid-line, &-axis, &-axis-labels {
-        //display:none;
-    }
 }
 
 .highcharts-color-0 {
@@ -37,6 +33,31 @@
         stroke: none;
     }
 }
+
+.PieMan-pie {
+    .highcharts-color-0 {
+        stroke: $umbGreen;
+        fill: $umbGreen;
+        color: $umbGreen;
+    }
+
+    .highcharts-color-1 {
+        stroke: $step3;
+        fill: $step3;
+        color: $step3;
+
+        .highcharts-point {
+            fill:$step3;
+        }
+    }
+
+    .highcharts-color-2{
+        stroke: $step5;
+        fill: $step5;
+        color: $step5;
+    }
+}
+
 
 .PieMan-drilldown-pie {
     .highcharts-color-0 {
@@ -67,13 +88,5 @@
         stroke: $step5;
         fill: $step5;
         color: $step5;
-    }
-}
-
-.PieMan-pie {
-    .highcharts-color-2,
-    .highcharts-color-3,
-    .highcharts-color-4 {
-        display: none;
     }
 }

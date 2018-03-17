@@ -1,15 +1,15 @@
 ﻿<div ng-controller="PieMan.SettingsController as vm" class="pieman-settings">
-    <div ng-hide="vm.isAuthd">
+    <div ng-if="!vm.isAuthd">
         <umb-control-group label="@pieman_authorization" description="@pieman_loginWithGoogleViaOAuth">
-            <button class="btn btn-success" ng-click="vm.doAuthorise()"><span class="icon-lock"></span> <localize key="pieman_authorize">Authorize</localize></button>
+            <button class="btn btn-success" ng-click="vm.doAuthorise()"><i class="icon-lock"></i> <localize key="pieman_authorize">Authorize</localize></button>
         </umb-control-group>
     </div>
-
+     
     <div class="umb-property" ng-show="vm.isAuthd && !vm.loading">
         <umb-control-group label="@pieman_account">
             <select name="account" ng-model="vm.selectedAccount" ng-change="vm.accountSelected()" ng-options="account.Name for account in vm.accounts">
                 <option value=""><localize key="pieman_selectAccount">-- Select account --</localize></option>
-            </select>
+            </select> 
         </umb-control-group>
 
         <umb-control-group label="@pieman_profile" ng-hide="model.account.Id === ''">

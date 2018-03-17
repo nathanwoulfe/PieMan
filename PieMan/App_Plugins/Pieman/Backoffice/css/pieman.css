@@ -17,6 +17,20 @@
       fill: #413659; }
   .pieman-editor .highcharts-pie-series .highcharts-point {
     stroke: none; }
+  .pieman-editor .PieMan-pie .highcharts-color-0 {
+    stroke: #00aea2;
+    fill: #00aea2;
+    color: #00aea2; }
+  .pieman-editor .PieMan-pie .highcharts-color-1 {
+    stroke: #3c7d84;
+    fill: #3c7d84;
+    color: #3c7d84; }
+    .pieman-editor .PieMan-pie .highcharts-color-1 .highcharts-point {
+      fill: #3c7d84; }
+  .pieman-editor .PieMan-pie .highcharts-color-2 {
+    stroke: #434d67;
+    fill: #434d67;
+    color: #434d67; }
   .pieman-editor .PieMan-drilldown-pie .highcharts-color-0 {
     stroke: #00aea2;
     fill: #00aea2;
@@ -37,10 +51,6 @@
     stroke: #434d67;
     fill: #434d67;
     color: #434d67; }
-  .pieman-editor .PieMan-pie .highcharts-color-2,
-  .pieman-editor .PieMan-pie .highcharts-color-3,
-  .pieman-editor .PieMan-pie .highcharts-color-4 {
-    display: none; }
   .pieman-editor .btn-settings {
     font-size: 30px;
     cursor: pointer;

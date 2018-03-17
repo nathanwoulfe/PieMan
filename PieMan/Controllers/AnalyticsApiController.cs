@@ -165,8 +165,8 @@ namespace PieMan.Controllers
                 MaxResults = 10
             });
 
-            Dictionary<string, int> deviceCategoryDict = new Dictionary<string, int>();
-            List<ApiResponse.BrowserData> list = new List<ApiResponse.BrowserData>();
+            Dictionary<string, int> browserCatData = new Dictionary<string, int>();
+            List<ApiResponse.BrowserData> browserData = new List<ApiResponse.BrowserData>();
             Dictionary<string, Dictionary<string, int>> browserDict = new Dictionary<string, Dictionary<string, int>>();
 
             foreach (AnalyticsDataRow analyticsDataRow in data.Body.Rows)
@@ -176,15 +176,15 @@ namespace PieMan.Controllers
                 string browserVersion = analyticsDataRow.Cells[2].ToString();
                 int views = Convert.ToInt32(analyticsDataRow.Cells[3].Value);
 
-                Dictionary<string, int> dictionary3;
-                string index2;
-
-                if (!deviceCategoryDict.ContainsKey(deviceCategory))
+                if (!browserCatData.ContainsKey(deviceCategory))
                 {
-                    deviceCategoryDict.Add(deviceCategory, 0);
+                    browserCatData.Add(deviceCategory, 0);
                 }
 
-                (dictionary3 = deviceCategoryDict)[index2 = deviceCategory] = dictionary3[index2] + views;
+                // why? isn't this just assigning a value back into browsercatdata for the device category?
+                Dictionary<string, int> dictionary3;
+                string index2;
+                (dictionary3 = browserCatData)[index2 = deviceCategory] = dictionary3[index2] + views;
 
                 if (!browserDict.ContainsKey(browserName))
                 {
@@ -193,16 +193,20 @@ namespace PieMan.Controllers
                 browserDict[browserName][browserVersion] = views;
             }
 
-            foreach (KeyValuePair<string, Dictionary<string, int>> keyValuePair in browserDict.Take(5).ToDictionary(t => t.Key, t => t.Value))
-                list.Add(new ApiResponse.BrowserData()
+            foreach (KeyValuePair<string, Dictionary<string, int>> keyValuePair in browserDict.Take(5)
+                .ToDictionary(t => t.Key, t => t.Value))
+            {
+                browserData.Add(new ApiResponse.BrowserData()
                 {
                     browser = keyValuePair.Key,
                     version = keyValuePair.Value
                 });
-            return Response(new ApiResponse.BrowserDataObject()
+            }
+
+            return Response(new ApiResponse.BrowserDataObject
             {
-                browserData = list,
-                browserCatData = deviceCategoryDict
+                browserData = browserData.OrderBy(x => x.browser),
+                browserCatData = browserCatData
             });
         }
 

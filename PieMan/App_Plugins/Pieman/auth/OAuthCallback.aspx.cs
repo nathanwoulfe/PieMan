@@ -1,11 +1,9 @@
 ﻿using System;
-using Skybrud.Social.Google;
 using Umbraco.Web.UI.Pages;
-using System.Web.UI.WebControls;
 using Skybrud.Social.Google.Common;
 using Skybrud.Social.Google.Common.Models;
-using Skybrud.Social.Google.Common.Responses;
 using umbraco;
+using Umbraco.Core.Services;
 
 namespace PieMan.BackOffice
 {
@@ -15,26 +13,26 @@ namespace PieMan.BackOffice
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            ILocalizedTextService textService = ApplicationContext.Services.TextService;
+
             // Get the state from the query string
             string state = Request.QueryString["state"];
 
             // Check whether the state is present
-            if (String.IsNullOrWhiteSpace(state))
+            if (string.IsNullOrWhiteSpace(state))
             {
                 //Ouput an error message
-                _content.Text += ui.Text("pieman", "noAccess");                
+                _content.Text += textService.Localize("pieman", new [] {"noAccess"});                
                 return;
             }
 
             // Get the session value
-            string session = Session["PieMan_" + state] as string;
 
             // Has the session expire?
-            if (session == null)
+            if (!(Session["PieMan_" + state] is string session))
             {
                 //Ouput an error message
-                _content.Text += ui.Text("pieman", "sorrySessionExpired");
+                _content.Text += textService.Localize("pieman", new [] {"sorrySessionExpired"});
                 return;
             }
 
@@ -42,10 +40,10 @@ namespace PieMan.BackOffice
             string refreshToken = Request.QueryString["token"];
 
             // Do we have a refresh token?
-            if (String.IsNullOrWhiteSpace(refreshToken))
+            if (string.IsNullOrWhiteSpace(refreshToken))
             {
                 //Ouput an error message
-                _content.Text += ui.Text("pieman", "somethingWentWrong");
+                _content.Text += textService.Localize("pieman", new [] {"somethingWentWrong"});
                 return;
             }
 
@@ -69,7 +67,7 @@ namespace PieMan.BackOffice
             catch
             {
                 //Ouput an error message
-                _content.Text += ui.Text("pieman", "somethingWentWrong");
+                _content.Text += textService.Localize("pieman", new [] {"somethingWentWrong"});
             }
 
             // Clear the session state
